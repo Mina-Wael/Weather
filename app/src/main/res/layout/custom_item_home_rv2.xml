@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardElevation="@dimen/_12sdp"
+    android:padding="@dimen/_15sdp"
+    android:layout_margin="@dimen/_5sdp"
+    >
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        >
+        <TextView
+            android:id="@+id/customHomeRv2TvDay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sun"
+            android:textSize="@dimen/_20ssp"
+            android:textColor="@color/black"
+            />
+        <ImageView
+            android:id="@+id/customHomeRv2Img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_home_black_24dp"
+            android:layout_toEndOf="@+id/customHomeRv2TvDay"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:layout_marginStart="@dimen/_50sdp"
+            />
+        <TextView
+            android:id="@+id/customHomeRv2TvTempText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Clear sky"
+            android:textSize="@dimen/_20ssp"
+            android:textColor="@color/black"
+            android:layout_toEndOf="@+id/customHomeRv2Img"
+            android:layout_marginStart="@dimen/_15sdp"
+            />
+        <TextView
+            android:id="@+id/customHomeRv2TvTempNum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="30/20"
+            android:textSize="@dimen/_20ssp"
+            android:textColor="@color/black"
+            android:layout_marginStart="@dimen/_15sdp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="@dimen/_15sdp"
+            />
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>

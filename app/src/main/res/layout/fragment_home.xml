@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.home.HomeFragment">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        >
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/homeCard1"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_200sdp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/homeCard1TempText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Clear Sky"
+                        android:textSize="@dimen/_25ssp"
+                        />
+
+                    <TextView
+                        android:id="@+id/homeCard1TvTempNum"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/homeCard1TempText"
+                        android:text="13"
+                        android:textSize="@dimen/_45ssp"
+                        android:layout_marginStart="@dimen/_35sdp"
+                        android:textColor="@color/black"
+                        />
+                    <TextView
+                        android:id="@+id/homeCard1TvTempMeas"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="ْ c"
+                        android:textSize="@dimen/_25ssp"
+                        android:layout_toEndOf="@+id/homeCard1TvTempNum"
+                        android:layout_below="@id/homeCard1TempText"
+                        />
+                </RelativeLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/homeRv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/homeCard1"
+                android:orientation="horizontal"
+                />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/homeRv2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/homeRv"
+                android:orientation="vertical"
+                android:layout_marginTop="@dimen/_12sdp"
+                />
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_200sdp"
+                app:cardElevation="@dimen/_15sdp"
+                app:cardCornerRadius="@dimen/_10sdp"
+                android:layout_below="@+id/homeRv2"
+                android:layout_marginTop="@dimen/_15sdp"
+                >
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                </RelativeLayout>
+
+            </androidx.cardview.widget.CardView>
+
+        </RelativeLayout>
+
+
+    </ScrollView>
+
+
+
+
+</RelativeLayout>
