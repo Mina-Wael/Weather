@@ -5,19 +5,40 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.home.HomeFragment">
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-
+        android:layout_alignParentTop="true"
         >
+
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:paddingStart="@dimen/_5sdp"
+            android:paddingEnd="@dimen/_5sdp"
+            >
+
+            <TextView
+                android:id="@+id/homeTvTimeZone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_marginBottom="@dimen/_3sdp"
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_15ssp" />
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/homeCard1"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_200sdp">
+                android:layout_height="@dimen/_150sdp"
+                android:layout_marginBottom="@dimen/_10sdp"
+                app:cardBackgroundColor="@color/purple_500"
+                app:cardCornerRadius="@dimen/_12sdp"
+                app:cardElevation="@dimen/_12sdp"
+                android:layout_below="@id/homeTvTimeZone"
+                >
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -28,29 +49,26 @@
                         android:id="@+id/homeCard1TempText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Clear Sky"
-                        android:textSize="@dimen/_25ssp"
-                        />
+                        android:textSize="@dimen/_25ssp" />
 
                     <TextView
                         android:id="@+id/homeCard1TvTempNum"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/homeCard1TempText"
-                        android:text="13"
-                        android:textSize="@dimen/_45ssp"
                         android:layout_marginStart="@dimen/_35sdp"
                         android:textColor="@color/black"
-                        />
+                        android:textSize="@dimen/_45ssp" />
+
                     <TextView
                         android:id="@+id/homeCard1TvTempMeas"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="ْ c"
-                        android:textSize="@dimen/_25ssp"
-                        android:layout_toEndOf="@+id/homeCard1TvTempNum"
                         android:layout_below="@id/homeCard1TempText"
-                        />
+                        android:layout_toEndOf="@+id/homeCard1TvTempNum"
+                        android:text="ْ c"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_25ssp" />
                 </RelativeLayout>
             </androidx.cardview.widget.CardView>
 
@@ -60,24 +78,28 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/homeCard1"
                 android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/custom_item_home_rv"
+
                 />
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/homeRv2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/homeRv"
-                android:orientation="vertical"
                 android:layout_marginTop="@dimen/_12sdp"
-                />
+                android:orientation="vertical"
+                tools:listitem="@layout/custom_item_home_rv2" />
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_200sdp"
-                app:cardElevation="@dimen/_15sdp"
-                app:cardCornerRadius="@dimen/_10sdp"
                 android:layout_below="@+id/homeRv2"
                 android:layout_marginTop="@dimen/_15sdp"
-                >
+                app:cardCornerRadius="@dimen/_10sdp"
+                app:cardElevation="@dimen/_15sdp">
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
@@ -90,8 +112,6 @@
 
 
     </ScrollView>
-
-
 
 
 </RelativeLayout>

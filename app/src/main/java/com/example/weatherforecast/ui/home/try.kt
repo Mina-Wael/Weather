@@ -24,7 +24,7 @@ fun main()
         hour=((-(hr-12)).toString()+" am")
     }
     var date:Date= Date()
-    cal.timeInMillis=1618308000
+    cal.timeInMillis=1647252000*1000
     var dayOfWeek:Int=cal.time.day
     var weekDay:String
     if (Calendar.MONDAY == dayOfWeek) weekDay = "monday"
@@ -36,7 +36,7 @@ fun main()
     else if (Calendar.SUNDAY == dayOfWeek) weekDay = "sunday"
     else weekDay="Wrong"
 
-    println(weekDay)
+    println(Calendar.SATURDAY)
 //    l.convert(1618315200,)
 //    1646937378210
 //    1618315200

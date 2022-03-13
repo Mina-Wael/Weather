@@ -1,7 +1,11 @@
 package com.example.howsweather.network
 
 import com.example.howsweather.model.Forecast
+import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import retrofit2.Call
+import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -13,11 +17,13 @@ class Retro() {
 
     private val BASE_URL = "https://api.openweathermap.org/"
     init {
-        retrofit = Retrofit.Builder().baseUrl(BASE_URL).addConverterFactory(GsonConverterFactory.create()).build()
-        retrofitInterface = retrofit.create(RetrofitInterface::class.java)
+        retrofit = Retrofit.Builder().baseUrl(BASE_URL).
+        addConverterFactory(GsonConverterFactory.create())
+            .build()
+
     }
 
-    fun getWeatherData():Call<Forecast>{
-        return retrofitInterface.getAllWeather(30.013056, 31.208853)
+    fun getWeatherData(): RetrofitInterface {
+        return retrofit.create(RetrofitInterface::class.java)
     }
 }

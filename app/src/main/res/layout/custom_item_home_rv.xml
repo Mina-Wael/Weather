@@ -1,46 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:gravity="center_horizontal"
-    android:padding="@dimen/_10sdp"
-    app:cardElevation="@dimen/_15sdp"
-    app:cardCornerRadius="@dimen/_15sdp"
-    android:background="@color/purple_500"
+
     >
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-    <TextView
-        android:id="@+id/customItemRvHomeTime"
+
+    <androidx.cardview.widget.CardView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="3 AM"
-        android:textSize="@dimen/_25ssp"
-        android:textColor="@color/black"
-        />
+        android:layout_marginEnd="@dimen/_10sdp"
+        android:gravity="center_horizontal"
+        app:cardBackgroundColor="@color/purple_200"
+        app:cardCornerRadius="@dimen/_15sdp"
+        app:cardElevation="@dimen/_15sdp"
+        app:contentPadding="@dimen/_12sdp">
 
-        <ImageView
-            android:id="@+id/customItemRvHomeImg"
+        <RelativeLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/customItemRvHomeTime"
-            android:layout_marginStart="@dimen/_15sdp"
-            android:src="@drawable/ic_home_black_24dp"
+            android:layout_height="@dimen/_110sdp"
+            android:padding="@dimen/_5sdp">
 
-            />
+            <TextView
+                android:id="@+id/customItemRvHomeTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:text="3 AM"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_20ssp" />
 
-    <TextView
-        android:id="@+id/customItemRvHomeTemp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/customItemRvHomeImg"
-        android:text="13 c"
-        android:textColor="@color/black"
-        android:textSize="@dimen/_25ssp"
-        />
+            <ImageView
+                android:id="@+id/customItemRvHomeImg"
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="@dimen/_15sdp"
+                android:src="@drawable/ic_home_black_24dp" />
 
-    </RelativeLayout>
-</androidx.cardview.widget.CardView>
+            <TextView
+                android:id="@+id/customItemRvHomeTemp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="@dimen/_15sdp"
+                android:text="13 c"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_20ssp"
+
+                />
+
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+</RelativeLayout>

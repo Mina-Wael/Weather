@@ -1,12 +1,25 @@
 package com.example.howsweather.model
 
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.example.weatherforecast.model.Hourly
 import com.example.weatherforecast.model.Minutely
-
+@Entity(tableName = "forecast")
 class Forecast {
+    @PrimaryKey(autoGenerate = true)
+    var id:Int=0
+        get() = field
+    var favorite:Int=0
+    get() = field
+
+    fun setFavo(fav:Int)
+    {
+        this.favorite=fav
+    }
 
 
-    constructor(
+    @JvmOverloads constructor(
         lat: Double, lon: Double,  timezone: String, timezone_offset: Int,
         current: Current, minutely: List<Minutely>, hourly: List<Hourly>,
         daily: List<Daily>, alerts: List<Alerts>
@@ -23,12 +36,16 @@ class Forecast {
     }
 
     constructor()
-
     var lat: Double = 0.0
         get() = field
-        set(value) {
-            field = value
-        }
+
+    fun setLatt(lat1:Double)
+    {
+        this.lat=lat1
+    }
+//        set(value) {
+//            field = value
+//        }
 
     var lon: Double = 0.0
         get() = field

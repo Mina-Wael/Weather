@@ -1,34 +1,45 @@
 package com.example.weatherforecast.ui.home
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import com.example.howsweather.model.Daily
+import android.content.Context
+import android.util.Log
+import androidx.lifecycle.*
 import com.example.howsweather.model.Forecast
 import com.example.howsweather.network.Retro
-import com.example.weatherforecast.model.Hourly
-import retrofit2.Call
-import retrofit2.Response
-import javax.security.auth.callback.Callback
+import com.example.weatherforecast.repository.Repository
+import com.google.android.gms.tasks.Task
+import kotlinx.coroutines.launch
 
-class HomeViewModel : ViewModel() {
+class HomeViewModel (context: Context): ViewModel() {
+      var repo:Repository
+    private var _foreCastList = MutableLiveData<Forecast>()
 
-    private val _hourlyList = MutableLiveData<List<Hourly>>()
-    val hourlyList: LiveData<List<Hourly>> = _hourlyList
-    private val _dialyList = MutableLiveData<List<Daily>>()
-    val dialyList: LiveData<List<Daily>> = _dialyList
-    fun getData(){
-    val retro: Retro = Retro()
-    var c = retro.getWeatherData()
-    c.enqueue(object : Callback, retrofit2.Callback<Forecast> {
-        override fun onFailure(call: Call<Forecast>?, t: Throwable?) {
+    init {
+        repo= Repository.getInstance(context)
+    }
 
+
+
+    fun getData(lat:Double,lng:Double) {
+      viewModelScope.launch {
+          repo.getApiData(lat,lng)
+      }
+    }
+
+    fun startListening(homeFragment: HomeFragment)
+    {
+
+        viewModelScope.launch {
+            repo.getForecast().observe(homeFragment, Observer {
+
+                _foreCastList.value=it
+
+
+            })
         }
 
-        override fun onResponse(call: Call<Forecast>?, response: Response<Forecast>?) {
-            _hourlyList.value= response?.body()?.hourly
-            _dialyList.value= response?.body()?.daily
-        }
-    })}
+    }
+    var forecast: LiveData<Forecast?> = _foreCastList
+
+
 
 }
