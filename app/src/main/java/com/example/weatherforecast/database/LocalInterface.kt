@@ -7,7 +7,7 @@ interface LocalInterface {
     suspend fun insertForecast(forecast: Forecast)
     fun deleteForecast(forecast: Forecast)
     fun getForecast(): LiveData<Forecast>
-    fun getFavorite():LiveData<Forecast>
+    fun getFavorite():LiveData<List<Forecast>>
     suspend fun deleteOld()
 
 

@@ -46,7 +46,7 @@ class LocalDatabase private constructor(var context: Context) :LocalInterface{
         return dao.getForecast()
     }
 
-    override fun getFavorite(): LiveData<Forecast> {
+    override fun getFavorite(): LiveData<List<Forecast>>{
        return dao.getFavorite()
     }
 

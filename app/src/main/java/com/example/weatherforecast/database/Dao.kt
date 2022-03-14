@@ -22,7 +22,7 @@ interface Dao {
     fun getForecast(): LiveData<Forecast>
 
     @Query("Select * FROM Forecast where favorite = 1")
-    fun getFavorite(): LiveData<Forecast>
+    fun getFavorite(): LiveData<List<Forecast>>
 
     @Query("delete FROM Forecast where favorite = 0")
     fun deleteOld()

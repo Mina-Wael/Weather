@@ -12,7 +12,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        tools:listitem="@layout/rv_favorite_custom_row" />
 
     <ImageView
         android:id="@+id/noPlacesImage"
@@ -22,7 +23,6 @@
         android:layout_above="@+id/text_no_places"
         android:src="@drawable/favorite_icon2"
         android:layout_centerHorizontal="true"
-
         />
 
     <TextView
@@ -35,7 +35,8 @@
         android:textAlignment="center"
         android:textSize="20sp"
         android:layout_centerVertical="true"
-
+        android:text="No Places"
+        android:textColor="@color/black"
          />
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/favorite_fab"

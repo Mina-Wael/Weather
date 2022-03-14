@@ -74,8 +74,19 @@ suspend fun getApiData(lat:Double,lng:Double)
                 forecast.setFavo(1)
                 localDatabase.insertForecast(forecast)
             }
+        }
 
+    }
 
+    fun getFavoriteList():LiveData<List<Forecast>>
+    {
+        return localDatabase.getFavorite()
+    }
+
+    fun deleteForecast(forecast: Forecast)
+    {
+        GlobalScope.launch {
+            localDatabase.deleteForecast(forecast)
         }
 
     }
