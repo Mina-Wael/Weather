@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+<!--    <androidx.cardview.widget.CardView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="@dimen/_200sdp"-->
+<!--        android:layout_below="@+id/homeRv2"-->
+<!--        android:layout_marginTop="@dimen/_15sdp"-->
+<!--        app:cardCornerRadius="@dimen/_10sdp"-->
+<!--        app:cardElevation="@dimen/_15sdp">-->
+
+<!--        <RelativeLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:layout_margin="@dimen/_10sdp"-->
+<!--            android:padding="@dimen/_2sdp"-->
+<!--            >-->
+
+<!--            <ImageView-->
+<!--                android:id="@+id/homeCard2PressImg"-->
+<!--                android:layout_width="@dimen/_20sdp"-->
+<!--                android:layout_height="@dimen/_20sdp"-->
+<!--                android:layout_marginStart="@dimen/_6sdp"-->
+<!--                android:src="@drawable/press" />-->
+<!--            <TextView-->
+<!--                android:id="@+id/homeCard2PressTv1"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="50"-->
+<!--                android:layout_below="@+id/homeCard2PressImg"-->
+<!--                android:layout_marginTop="@dimen/_3sdp"-->
+<!--                android:layout_marginStart="@dimen/_6sdp"-->
+<!--                />-->
+<!--            <TextView-->
+<!--                android:id="@+id/homeCard2PressTv2"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="pressure"-->
+<!--                android:layout_below="@+id/homeCard2PressTv1"-->
+<!--                android:layout_marginTop="@dimen/_3sdp"-->
+<!--                />-->
+
+<!--            <ImageView-->
+<!--                android:id="@+id/homeCard2HumImg"-->
+<!--                android:layout_width="@dimen/_20sdp"-->
+<!--                android:layout_height="@dimen/_20sdp"-->
+<!--                android:layout_alignParentTop="true"-->
+<!--                android:layout_centerHorizontal="true"-->
+<!--                android:src="@drawable/rain" />-->
+<!--            <TextView-->
+<!--                android:id="@+id/homeCard2HumTv1"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="50"-->
+<!--                android:layout_below="@+id/homeCard2HumImg"-->
+<!--                android:layout_marginTop="@dimen/_3sdp"-->
+<!--                android:layout_centerHorizontal="true"-->
+<!--                />-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/homeCard2HumTv2"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_below="@+id/homeCard2HumTv1"-->
+<!--                android:layout_centerHorizontal="true"-->
+<!--                android:layout_marginTop="@dimen/_3sdp"-->
+<!--                android:text="humidity" />-->
+
+<!--            <ImageView-->
+<!--                android:id="@+id/homeCard2WindImg"-->
+<!--                android:layout_width="@dimen/_20sdp"-->
+<!--                android:layout_height="@dimen/_20sdp"-->
+<!--                android:layout_alignParentTop="true"-->
+<!--                android:layout_alignParentEnd="true"-->
+<!--                android:layout_marginEnd="@dimen/_6sdp"-->
+<!--                android:src="@drawable/wind" />-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/homeCard2WindTv1"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_below="@+id/homeCard2WindImg"-->
+<!--                android:layout_alignParentEnd="true"-->
+<!--                android:layout_marginTop="@dimen/_3sdp"-->
+<!--                android:layout_marginEnd="@dimen/_8sdp"-->
+<!--                android:text="50" />-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/homeCard2WindTv2"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_below="@+id/homeCard2WindTv1"-->
+<!--                android:layout_alignParentEnd="true"-->
+<!--                android:layout_marginTop="@dimen/_3sdp"-->
+<!--                android:text="wind" />-->
+
+<!--            <ImageView-->
+<!--                android:id="@+id/homeCard2cloudsImg"-->
+<!--                android:layout_width="@dimen/_20sdp"-->
+<!--                android:layout_height="@dimen/_20sdp"-->
+<!--                android:layout_above="@+id/homeCard2cloudsTv1"-->
+<!--                android:layout_alignParentStart="true"-->
+<!--                android:layout_marginStart="@dimen/_6sdp"-->
+<!--                android:layout_marginTop="@dimen/_20sdp"-->
+<!--                android:src="@drawable/cloud"-->
+
+<!--                />-->
+<!--            <TextView-->
+<!--                android:id="@+id/homeCard2cloudsTv1"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="50"-->
+<!--                android:layout_marginTop="@dimen/_3sdp"-->
+<!--                android:layout_alignParentStart="true"-->
+<!--                android:layout_above="@+id/homeCard2cloudsTv2"-->
+<!--                android:layout_marginStart="@dimen/_6sdp"-->
+<!--                />-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/homeCard2cloudsTv2"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_alignParentStart="true"-->
+<!--                android:layout_alignParentBottom="true"-->
+<!--                android:layout_marginTop="@dimen/_3sdp"-->
+<!--                android:text="clouds"-->
+<!--                android:layout_marginBottom="@dimen/_20sdp"-->
+<!--                />-->
+
+<!--            <ImageView-->
+<!--                android:id="@+id/homeCard2uviImg"-->
+<!--                android:layout_width="@dimen/_20sdp"-->
+<!--                android:layout_height="@dimen/_20sdp"-->
+<!--                android:layout_above="@+id/homeCard2uviTv1"-->
+<!--                android:layout_centerHorizontal="true"-->
+<!--                android:layout_marginTop="@dimen/_20sdp"-->
+<!--                android:src="@drawable/uvi" />-->
+<!--            <TextView-->
+<!--                android:id="@+id/homeCard2uviTv1"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="50"-->
+<!--                android:layout_marginTop="@dimen/_3sdp"-->
+<!--                android:layout_above="@+id/homeCard2uviTv2"-->
+<!--                android:layout_centerHorizontal="true"-->
+<!--                />-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/homeCard2uviTv2"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_alignParentBottom="true"-->
+<!--                android:layout_marginTop="@dimen/_3sdp"-->
+<!--                android:text="uvi"-->
+<!--                android:layout_marginBottom="@dimen/_20sdp"-->
+<!--                android:layout_centerHorizontal="true"-->
+<!--                />-->
+
+<!--            <ImageView-->
+<!--                android:id="@+id/homeCard2visImg"-->
+<!--                android:layout_width="@dimen/_20sdp"-->
+<!--                android:layout_height="@dimen/_20sdp"-->
+<!--                android:layout_above="@+id/homeCard2visTv1"-->
+<!--                android:layout_alignParentEnd="true"-->
+<!--                android:layout_marginTop="@dimen/_20sdp"-->
+<!--                android:layout_marginEnd="@dimen/_6sdp"-->
+<!--                android:src="@drawable/vis" />-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/homeCard2visTv1"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_above="@+id/homeCard2visTv2"-->
+<!--                android:layout_alignParentEnd="true"-->
+<!--                android:layout_marginTop="@dimen/_3sdp"-->
+<!--                android:layout_marginEnd="@dimen/_8sdp"-->
+<!--                android:text="50" />-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/homeCard2visTv2"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_alignParentBottom="true"-->
+<!--                android:layout_marginTop="@dimen/_3sdp"-->
+<!--                android:text="visibility"-->
+<!--                android:layout_marginBottom="@dimen/_20sdp"-->
+<!--                android:layout_alignParentEnd="true"-->
+<!--                />-->
+
+
+<!--        </RelativeLayout>-->
+
+<!--    </androidx.cardview.widget.CardView>-->
+
+</RelativeLayout>
