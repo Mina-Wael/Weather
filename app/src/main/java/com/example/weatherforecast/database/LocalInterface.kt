@@ -9,6 +9,7 @@ interface LocalInterface {
     fun getForecast(): LiveData<Forecast>
     fun getFavorite():LiveData<List<Forecast>>
     suspend fun deleteOld()
+    suspend fun getForecastById(id:Int):LiveData<Forecast>
 
 
 

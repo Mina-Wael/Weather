@@ -11,45 +11,46 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/_10sdp"
         android:gravity="center_horizontal"
-        app:cardBackgroundColor="@color/purple_200"
         app:cardCornerRadius="@dimen/_15sdp"
         app:cardElevation="@dimen/_15sdp"
-        app:contentPadding="@dimen/_12sdp">
+        app:contentPadding="@dimen/_4sdp"
+        app:cardBackgroundColor="@color/card_color1"
+        >
 
         <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/_110sdp"
-            android:padding="@dimen/_5sdp">
+            android:layout_width="@dimen/_35sdp"
+            android:layout_height="@dimen/_90sdp"
+            >
 
             <TextView
                 android:id="@+id/customItemRvHomeTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
-                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/_3sdp"
                 android:text="3 AM"
-                android:textColor="@color/black"
-                android:textSize="@dimen/_20ssp" />
+                android:textColor="@color/black" />
 
             <ImageView
                 android:id="@+id/customItemRvHomeImg"
-                android:layout_width="@dimen/_20sdp"
-                android:layout_height="@dimen/_20sdp"
+                android:layout_width="@dimen/_15sdp"
+                android:layout_height="@dimen/_15sdp"
                 android:layout_centerVertical="true"
-                android:layout_marginStart="@dimen/_15sdp"
-                android:src="@drawable/ic_home_black_24dp" />
+                android:src="@drawable/ic_home_black_24dp"
+                android:layout_centerHorizontal="true"
+
+                />
 
             <TextView
                 android:id="@+id/customItemRvHomeTemp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
-                android:layout_marginBottom="@dimen/_15sdp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="@dimen/_3sdp"
                 android:text="13 c"
-                android:textColor="@color/black"
-                android:textSize="@dimen/_20ssp"
-
-                />
+                android:textColor="@color/black" />
 
         </RelativeLayout>
     </androidx.cardview.widget.CardView>

@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.favorite.FavoriteFragment"
+    android:background="@color/backGround"
     >
 
     <androidx.recyclerview.widget.RecyclerView
@@ -13,7 +14,9 @@
         android:layout_height="match_parent"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        tools:listitem="@layout/rv_favorite_custom_row" />
+        tools:listitem="@layout/rv_favorite_custom_row"
+
+        />
 
     <ImageView
         android:id="@+id/noPlacesImage"
@@ -38,14 +41,16 @@
         android:text="No Places"
         android:textColor="@color/black"
          />
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/favorite_fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/add_icon"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginBottom="@dimen/_40sdp"
+        android:layout_alignParentBottom="true"
         android:layout_marginEnd="@dimen/_25sdp"
+        android:layout_marginBottom="@dimen/_40sdp"
+        android:src="@drawable/add_icon"
+
         />
 </RelativeLayout>

@@ -91,6 +91,11 @@ suspend fun getApiData(lat:Double,lng:Double)
 
     }
 
+    suspend fun getForecastById(id:Int):LiveData<Forecast>
+    {
+       return localDatabase.getForecastById(id)
+    }
+
 
 
 }

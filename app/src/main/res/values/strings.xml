@@ -3,4 +3,42 @@
     <string name="title_home">Home</string>
     <string name="title_favorite">Favorite</string>
     <string name="title_notifications">Notifications</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="openDrawer">openDrawer</string>
+    <string name="closeDrawer">closeDrawer</string>
+    <!-- Preference Titles -->
+    <string name="messages_header">Messages</string>
+    <string name="sync_header">Sync</string>
+
+    <!-- Messages Preferences -->
+    <string name="signature_title">Your signature</string>
+    <string name="reply_title">Default reply action</string>
+
+    <!-- Sync Preferences -->
+    <string name="sync_title">Sync email periodically</string>
+    <string name="attachment_title">Download incoming attachments</string>
+    <string name="attachment_summary_on">Automatically download attachments for incoming emails
+    </string>
+    <string name="attachment_summary_off">Only download attachments when manually requested</string>
+    <string name="language">Language</string>
+    <string name="settingsEnglish">English</string>
+    <string name="settingsArabic">Arabic</string>
+    <string name="settingsTemperature">Temperature</string>
+    <string name="settingsCelsius">Celsius</string>
+    <string name="settingsKelvin">Kelvin</string>
+    <string name="SettingsFahrenheit">Fahrenheit</string>
+    <string name="settingsMode">Mode</string>
+    <string name="modeDark">Dark</string>
+    <string name="modeLight">Light</string>
+    <string name="settingsLocation">Location</string>
+    <string name="settingsGps">Gps</string>
+    <string name="settingsMap">Map</string>
+    <string name="humidity">humidity</string>
+    <string name="wind">wind</string>
+    <string name="clouds">clouds</string>
+    <string name="uvi">uvi</string>
+    <string name="visibility">visibility</string>
+    <string name="pressure">pressure</string>
+    <string name="settings">Settings</string>
 </resources>

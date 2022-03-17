@@ -1,0 +1,45 @@
+<resources>
+    <string name="app_name">الطقس</string>
+    <string name="title_home">الرئيسيه</string>
+    <string name="title_favorite">المفضله</string>
+    <string name="title_notifications">المنبه</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="openDrawer">openDrawer</string>
+    <string name="closeDrawer">closeDrawer</string>
+    <!-- Preference Titles -->
+    <string name="messages_header">Messages</string>
+    <string name="sync_header">Sync</string>
+
+    <!-- Messages Preferences -->
+    <string name="signature_title">Your signature</string>
+    <string name="reply_title">Default reply action</string>
+
+    <!-- Sync Preferences -->
+    <string name="sync_title">Sync email periodically</string>
+    <string name="attachment_title">Download incoming attachments</string>
+    <string name="attachment_summary_on">Automatically download attachments for incoming emails
+    </string>
+    <string name="attachment_summary_off">Only download attachments when manually requested</string>
+    <string name="language">اللغه</string>
+    <string name="settingsEnglish">الانجليزيه</string>
+    <string name="settingsArabic">العربيه</string>
+    <string name="settingsTemperature">الحراره</string>
+    <string name="settingsCelsius">سيليزيس</string>
+    <string name="settingsKelvin">كيلفن</string>
+    <string name="SettingsFahrenheit">فيهرنهايت</string>
+    <string name="settingsMode">الاضاءه</string>
+    <string name="modeDark">غامق</string>
+    <string name="modeLight">فاتح</string>
+    <string name="settingsLocation">الموقع</string>
+    <string name="settingsGps">موقعى الحالى</string>
+    <string name="settingsMap">الخريطه</string>2
+    <string name="humidity">الرطوبه</string>
+    <string name="wind">الرياح</string>
+    <string name="clouds">السحب</string>
+    <string name="uvi">فوق البنفسجيه</string>
+    <string name="visibility">الرؤيه</string>
+    <string name="pressure">الضغط</string>
+    <string name="settings">الاعدادات</string>
+
+</resources>

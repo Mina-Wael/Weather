@@ -22,7 +22,7 @@
             >
 
             <TextView
-                android:id="@+id/homeTvTimeZone"
+                android:id="@+id/detailsTvTimeZone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
@@ -32,13 +32,13 @@
                 android:textSize="@dimen/_15ssp" />
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/homeCard1"
+                android:id="@+id/detailsCard1"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_150sdp"
                 android:layout_marginBottom="@dimen/_10sdp"
-                app:cardCornerRadius="@dimen/_23sdp"
-                app:cardElevation="@dimen/_10sdp"
-                android:layout_below="@id/homeTvTimeZone"
+                app:cardCornerRadius="@dimen/_22sdp"
+                app:cardElevation="@dimen/_12sdp"
+                android:layout_below="@id/detailsTvTimeZone"
                 >
 
                 <RelativeLayout
@@ -49,26 +49,26 @@
                     >
 
                     <TextView
-                        android:id="@+id/homeCard1TempText"
+                        android:id="@+id/detailsCard1TempText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="@dimen/_25ssp" />
 
                     <TextView
-                        android:id="@+id/homeCard1TvTempNum"
+                        android:id="@+id/detailsCard1TvTempNum"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/homeCard1TempText"
+                        android:layout_below="@id/detailsCard1TempText"
                         android:layout_marginStart="@dimen/_35sdp"
                         android:textColor="@color/black"
                         android:textSize="@dimen/_45ssp" />
 
                     <TextView
-                        android:id="@+id/homeCard1TvTempMeas"
+                        android:id="@+id/detailsCard1TvTempMeas"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/homeCard1TempText"
-                        android:layout_toEndOf="@+id/homeCard1TvTempNum"
+                        android:layout_below="@id/detailsCard1TempText"
+                        android:layout_toEndOf="@+id/detailsCard1TvTempNum"
                         android:text="ْ c"
                         android:textColor="@color/black"
                         android:textSize="@dimen/_25ssp" />
@@ -76,92 +76,97 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/homeRv"
+                android:id="@+id/detailsRv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/homeCard1"
+                android:layout_below="@+id/detailsCard1"
                 android:orientation="horizontal"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:listitem="@layout/custom_item_home_rv" />
+                tools:listitem="@layout/custom_item_home_rv"
+
+                />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/homeRv2"
+                android:id="@+id/detailsRv2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/homeRv"
+                android:layout_below="@+id/detailsRv"
                 android:layout_marginTop="@dimen/_12sdp"
                 android:orientation="vertical"
+
                 tools:listitem="@layout/custom_item_home_rv2" />
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_200sdp"
-                android:layout_below="@+id/homeRv2"
+                android:layout_below="@+id/detailsRv2"
                 android:layout_marginTop="@dimen/_15sdp"
-                app:cardCornerRadius="@dimen/_23sdp"
+                app:cardCornerRadius="@dimen/_22sdp"
                 app:cardElevation="@dimen/_15sdp"
+                app:cardBackgroundColor="@color/purple_500"
+
                 android:layout_marginBottom="@dimen/_50sdp"
                 >
 
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:padding="@dimen/_10sdp"
+                    android:padding="@dimen/_5sdp"
                     android:background="@drawable/card_shape"
                     >
 
                     <ImageView
-                        android:id="@+id/homeCard2PressImg"
+                        android:id="@+id/detailsCard2PressImg"
                         android:layout_width="@dimen/_20sdp"
                         android:layout_height="@dimen/_20sdp"
                         android:layout_marginStart="@dimen/_6sdp"
                         android:src="@drawable/press" />
                     <TextView
-                        android:id="@+id/homeCard2PressTv1"
+                        android:id="@+id/detailsCard2PressTv1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="50"
-                        android:layout_below="@+id/homeCard2PressImg"
+                        android:layout_below="@+id/detailsCard2PressImg"
                         android:layout_marginTop="@dimen/_3sdp"
-                        android:layout_marginStart="@dimen/_3sdp"
+                        android:layout_marginStart="@dimen/_6sdp"
                         />
                     <TextView
-                        android:id="@+id/homeCard2PressTv2"
+                        android:id="@+id/detailsCard2PressTv2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/pressure"
-                        android:layout_below="@+id/homeCard2PressTv1"
+                        android:text="pressure"
+                        android:layout_below="@+id/detailsCard2PressTv1"
                         android:layout_marginTop="@dimen/_3sdp"
                         />
 
                     <ImageView
-                        android:id="@+id/homeCard2HumImg"
+                        android:id="@+id/detailsCard2HumImg"
                         android:layout_width="@dimen/_20sdp"
                         android:layout_height="@dimen/_20sdp"
                         android:layout_alignParentTop="true"
                         android:layout_centerHorizontal="true"
                         android:src="@drawable/rain" />
                     <TextView
-                        android:id="@+id/homeCard2HumTv1"
+                        android:id="@+id/detailsCard2HumTv1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="50"
-                        android:layout_below="@+id/homeCard2HumImg"
+                        android:layout_below="@+id/detailsCard2HumImg"
                         android:layout_marginTop="@dimen/_3sdp"
                         android:layout_centerHorizontal="true"
                         />
 
                     <TextView
-                        android:id="@+id/homeCard2HumTv2"
+                        android:id="@+id/detailsCard2HumTv2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/homeCard2HumTv1"
+                        android:layout_below="@+id/detailsCard2HumTv1"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="@dimen/_3sdp"
-                        android:text="@string/humidity" />
+                        android:text="humidity" />
 
                     <ImageView
-                        android:id="@+id/homeCard2WindImg"
+                        android:id="@+id/detailsCard2WindImg"
                         android:layout_width="@dimen/_20sdp"
                         android:layout_height="@dimen/_20sdp"
                         android:layout_alignParentTop="true"
@@ -170,29 +175,29 @@
                         android:src="@drawable/wind" />
 
                     <TextView
-                        android:id="@+id/homeCard2WindTv1"
+                        android:id="@+id/detailsCard2WindTv1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/homeCard2WindImg"
+                        android:layout_below="@+id/detailsCard2WindImg"
                         android:layout_alignParentEnd="true"
                         android:layout_marginTop="@dimen/_3sdp"
                         android:layout_marginEnd="@dimen/_8sdp"
                         android:text="50" />
 
                     <TextView
-                        android:id="@+id/homeCard2WindTv2"
+                        android:id="@+id/detailsCard2WindTv2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/homeCard2WindTv1"
+                        android:layout_below="@+id/detailsCard2WindTv1"
                         android:layout_alignParentEnd="true"
                         android:layout_marginTop="@dimen/_3sdp"
-                        android:text="@string/wind" />
+                        android:text="wind" />
 
                     <ImageView
-                        android:id="@+id/homeCard2cloudsImg"
+                        android:id="@+id/detailsCard2cloudsImg"
                         android:layout_width="@dimen/_20sdp"
                         android:layout_height="@dimen/_20sdp"
-                        android:layout_above="@+id/homeCard2cloudsTv1"
+                        android:layout_above="@+id/detailsCard2cloudsTv1"
                         android:layout_alignParentStart="true"
                         android:layout_marginStart="@dimen/_6sdp"
                         android:layout_marginTop="@dimen/_20sdp"
@@ -200,86 +205,85 @@
 
                         />
                     <TextView
-                        android:id="@+id/homeCard2cloudsTv1"
+                        android:id="@+id/detailsCard2cloudsTv1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="50"
                         android:layout_marginTop="@dimen/_3sdp"
                         android:layout_alignParentStart="true"
-                        android:layout_above="@+id/homeCard2cloudsTv2"
+                        android:layout_above="@+id/detailsCard2cloudsTv2"
                         android:layout_marginStart="@dimen/_6sdp"
                         />
 
                     <TextView
-                        android:id="@+id/homeCard2cloudsTv2"
+                        android:id="@+id/detailsCard2cloudsTv2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
                         android:layout_alignParentBottom="true"
                         android:layout_marginTop="@dimen/_3sdp"
-                        android:text="@string/clouds"
+                        android:text="clouds"
                         android:layout_marginBottom="@dimen/_20sdp"
                         />
 
                     <ImageView
-                        android:id="@+id/homeCard2uviImg"
+                        android:id="@+id/detailsCard2uviImg"
                         android:layout_width="@dimen/_20sdp"
                         android:layout_height="@dimen/_20sdp"
-                        android:layout_above="@+id/homeCard2uviTv1"
+                        android:layout_above="@+id/detailsCard2uviTv1"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="@dimen/_20sdp"
                         android:src="@drawable/uvi" />
                     <TextView
-                        android:id="@+id/homeCard2uviTv1"
+                        android:id="@+id/detailsCard2uviTv1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="50"
                         android:layout_marginTop="@dimen/_3sdp"
-                        android:layout_above="@+id/homeCard2uviTv2"
+                        android:layout_above="@+id/detailsCard2uviTv2"
                         android:layout_centerHorizontal="true"
                         />
 
                     <TextView
-                        android:id="@+id/homeCard2uviTv2"
+                        android:id="@+id/detailsCard2uviTv2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentBottom="true"
                         android:layout_marginTop="@dimen/_3sdp"
-                        android:text="@string/uvi"
+                        android:text="uvi"
                         android:layout_marginBottom="@dimen/_20sdp"
                         android:layout_centerHorizontal="true"
                         />
 
                     <ImageView
-                        android:id="@+id/homeCard2visImg"
+                        android:id="@+id/detailsCard2visImg"
                         android:layout_width="@dimen/_20sdp"
                         android:layout_height="@dimen/_20sdp"
-                        android:layout_above="@+id/homeCard2visTv1"
+                        android:layout_above="@+id/detailsCard2visTv1"
                         android:layout_alignParentEnd="true"
                         android:layout_marginTop="@dimen/_20sdp"
                         android:layout_marginEnd="@dimen/_6sdp"
                         android:src="@drawable/vis" />
 
                     <TextView
-                        android:id="@+id/homeCard2visTv1"
+                        android:id="@+id/detailsCard2visTv1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_above="@+id/homeCard2visTv2"
+                        android:layout_above="@+id/detailsCard2visTv2"
                         android:layout_alignParentEnd="true"
                         android:layout_marginTop="@dimen/_3sdp"
-                        android:layout_marginEnd="@dimen/_5sdp"
+                        android:layout_marginEnd="@dimen/_8sdp"
                         android:text="50" />
 
                     <TextView
-                        android:id="@+id/homeCard2visTv2"
+                        android:id="@+id/detailsCard2visTv2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentBottom="true"
                         android:layout_marginTop="@dimen/_3sdp"
-                        android:text="@string/visibility"
+                        android:text="visibility"
                         android:layout_marginBottom="@dimen/_20sdp"
                         android:layout_alignParentEnd="true"
-                        android:layout_marginEnd="@dimen/_5sdp"
                         />
 
 
@@ -287,13 +291,10 @@
 
             </androidx.cardview.widget.CardView>
 
-
-
         </RelativeLayout>
 
+
     </ScrollView>
-
-
 
 
 </RelativeLayout>

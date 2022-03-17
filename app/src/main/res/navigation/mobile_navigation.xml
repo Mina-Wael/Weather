@@ -9,7 +9,11 @@
         android:id="@+id/navigation_home"
         android:name="com.example.weatherforecast.ui.home.HomeFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <argument
+            android:name="id_favo"
+            app:argType="integer" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_favorite"
@@ -19,6 +23,9 @@
         <action
             android:id="@+id/action_navigation_favorite_to_mapsFragment"
             app:destination="@id/mapsFragment" />
+        <action
+            android:id="@+id/action_navigation_favorite_to_favoriteDetails"
+            app:destination="@id/favoriteDetails" />
     </fragment>
 
     <fragment
@@ -35,4 +42,23 @@
             android:id="@+id/action_mapsFragment_to_navigation_favorite"
             app:destination="@id/navigation_favorite" />
     </fragment>
+    <fragment
+        android:id="@+id/favoriteDetails"
+        android:name="com.example.weatherforecast.ui.favorite.details.FavoriteDetails"
+        android:label="favorite_details_fragment"
+        tools:layout="@layout/favorite_details_fragment" >
+        <argument
+            android:name="latLng"
+            app:argType="com.google.android.gms.maps.model.LatLng" />
+        <argument
+            android:name="id"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_favoriteDetails_to_navigation_favorite"
+            app:destination="@id/navigation_favorite" />
+    </fragment>
+    <fragment
+        android:id="@+id/aboutUs"
+        android:name="com.example.weatherforecast.ui.aboutUs.AboutUs"
+        android:label="AboutUs" />
 </navigation>

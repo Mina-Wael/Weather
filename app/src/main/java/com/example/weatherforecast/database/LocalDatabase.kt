@@ -8,6 +8,7 @@ import androidx.room.Room
 import com.example.howsweather.database.Dao
 import com.example.howsweather.database.DatabaseBuilder
 import com.example.howsweather.model.Forecast
+import com.google.android.gms.tasks.SuccessContinuation
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -53,4 +54,10 @@ class LocalDatabase private constructor(var context: Context) :LocalInterface{
     override suspend fun deleteOld() {
         dao.deleteOld()
     }
+
+    override suspend fun getForecastById(id: Int): LiveData<Forecast> {
+        return dao.getForecastById(id)
+    }
+
+
 }

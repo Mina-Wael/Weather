@@ -27,5 +27,9 @@ interface Dao {
     @Query("delete FROM Forecast where favorite = 0")
     fun deleteOld()
 
+    @Query("Select * FROM Forecast where id = :id")
+     fun getForecastById(id:Int):LiveData<Forecast>
+
+
 
 }

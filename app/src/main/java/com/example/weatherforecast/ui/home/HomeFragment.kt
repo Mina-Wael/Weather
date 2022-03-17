@@ -98,6 +98,13 @@ class HomeFragment : Fragment() {
                 binding.homeCard1TvTempNum.text = it.current.temp.toString()
                 binding.homeCard1TvTempMeas.visibility = View.VISIBLE
                 binding.homeTvTimeZone.text = it.timezone
+                binding.homeCard2PressTv1.setText(it.current.pressure.toString()+"hps")
+                binding.homeCard2HumTv1.setText(it.current.humidity.toString()+"%")
+                binding.homeCard2cloudsTv1.setText(it.current.clouds.toString()+"%")
+                binding.homeCard2visTv1.setText(it.current.visibility.toString()+"m")
+                binding.homeCard2WindTv1.setText(it.current.wind_speed.toString()+"m/s")
+                binding.homeCard2uviTv1.setText(it.current.uvi.toString())
+
                 Log.i("TAG", "onCreateView: get data from database " + it!!.timezone)
             } else
                 clearData()

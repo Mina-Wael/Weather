@@ -9,12 +9,14 @@ import android.widget.ImageView
 import android.widget.PopupMenu
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.view.marginBottom
 import androidx.recyclerview.widget.RecyclerView
 import com.example.howsweather.model.Forecast
 import com.example.weatherforecast.R
+import com.google.android.gms.maps.model.LatLng
 
 
-class FavoriteAdapter(var context: Context,var forecastList: List<Forecast>,var onDeleteListener: OnDeleteListener) :RecyclerView.Adapter<FavoriteAdapter.Holder>() {
+class FavoriteAdapter(var context: Context,var forecastList: List<Forecast>,var onDeleteListener: OnDeleteListener,var onItemClick: OnItemClick) :RecyclerView.Adapter<FavoriteAdapter.Holder>() {
 
 
     class Holder(itemView: View) : RecyclerView.ViewHolder(itemView)
@@ -29,9 +31,15 @@ class FavoriteAdapter(var context: Context,var forecastList: List<Forecast>,var 
     }
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
+
        holder.tv.text=forecastList.get(position).timezone
         holder.img.setOnClickListener(View.OnClickListener {
                 onDeleteListener.onClick(it,position,forecastList.get(position))
+        })
+
+        holder.itemView.setOnClickListener(View.OnClickListener {
+            var latLng=LatLng(forecastList.get(position).lat,forecastList.get(position).lon)
+            onItemClick.onClick(forecastList.get(position).id,latLng)
         })
     }
 
