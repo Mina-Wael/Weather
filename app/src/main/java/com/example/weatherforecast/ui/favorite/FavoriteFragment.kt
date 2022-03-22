@@ -1,6 +1,5 @@
 package com.example.weatherforecast.ui.favorite
 
-import android.graphics.Rect
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.MenuItem
@@ -9,21 +8,19 @@ import android.view.ViewGroup
 import android.widget.PopupMenu
 import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.widget.Toolbar
-import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import androidx.navigation.ui.setupWithNavController
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.howsweather.model.Forecast
-import com.example.weatherforecast.OnDrawerListener
 import com.example.weatherforecast.R
 import com.example.weatherforecast.databinding.FragmentFavoriteBinding
+import com.example.weatherforecast.util.showSnackbar
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.snackbar.Snackbar
 
 class FavoriteFragment : Fragment(), OnDeleteListener ,OnItemClick{
 
@@ -83,18 +80,34 @@ class FavoriteFragment : Fragment(), OnDeleteListener ,OnItemClick{
         }
     }
 
+    override fun onStart() {
+        navController.popBackStack(R.id.mapsFragment,true)
+        navController.popBackStack(R.id.Details,true)
+        super.onStart()
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
          navController = Navigation.findNavController(view)
 
         binding.favoriteFab.setOnClickListener(View.OnClickListener {
-            navController.popBackStack()
-            navController.navigate(R.id.mapsFragment)
+            favoritrViewModel.checkNetwork()
+
         })
+
+        favoritrViewModel.net.observe(requireActivity(), Observer {
+            if (it)
+                navController.navigate(R.id.mapsFragment)
+           else
+            binding.root.showSnackbar(getString(R.string.NoInternetMsg),Snackbar.LENGTH_SHORT)
+
+        })
+
+
         favoritrViewModel.getFavoriteList(this)
-
-
     }
+
+
 
     override fun onDestroyView() {
         super.onDestroyView()
@@ -106,19 +119,7 @@ class FavoriteFragment : Fragment(), OnDeleteListener ,OnItemClick{
         if (requireActivity().findViewById<BottomNavigationView>(R.id.nav_view).visibility == View.GONE)
             requireActivity().findViewById<BottomNavigationView>(R.id.nav_view).visibility =
                 View.VISIBLE
-
-//        var cl:OnDrawerListener=activity as OnDrawerListener
-//        cl.enableDrawer()
-
-
-//        requireActivity().findViewById<DrawerLayout>(R.id.mainDrawer).setDrawe
-//        setOnClickListener(View.OnClickListener {
-//            Toast.makeText(requireContext(), "cli", Toast.LENGTH_SHORT).show()
-//        })
-
-
-
-    }
+            }
 
     override fun onClick(v: View, position: Int, forecast: Forecast) {
         openOptionMenu(v, position, forecast)
@@ -132,8 +133,7 @@ class FavoriteFragment : Fragment(), OnDeleteListener ,OnItemClick{
             PopupMenu.OnMenuItemClickListener {
             override fun onMenuItemClick(p0: MenuItem?): Boolean {
                 Toast.makeText(
-                    context, "You selected the action : " + p0!!.getTitle()
-                        .toString() + " position " + position, Toast.LENGTH_SHORT
+                    context, "Deleted", Toast.LENGTH_SHORT
                 ).show()
                 favoritrViewModel.deleteFavorite(forecast)
                 return true
@@ -145,13 +145,6 @@ class FavoriteFragment : Fragment(), OnDeleteListener ,OnItemClick{
     override fun onClick(id: Int,latLng: LatLng) {
        var action=FavoriteFragmentDirections.actionNavigationFavoriteToFavoriteDetails(latLng, id)
         navController.navigate(action)
-//       requireActivity().findViewById<DrawerLayout>(R.id.mainDrawer).setOnClickListener(View.OnClickListener {
-//           Toast.makeText(requireContext(), "cli", Toast.LENGTH_SHORT).show()
-//       })
-    //        .setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
-
-//        setupWithNavController(navController,requireActivity().findViewById(R.id.mainDrawer))
-//        requireActivity().findViewById<Toolbar>(R.id.mainToolbar).setid
 
     }
 

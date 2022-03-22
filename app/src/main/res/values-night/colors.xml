@@ -9,12 +9,15 @@
     <color name="white">#232020</color>
     <color name="gray">#3A3939</color>
     <color name="card_color1">#616161</color>
+    <color name="card_color2">#292B2C</color>
     <color name="card_stroke">#9e9e9e</color>
     <color name="backGround">#292727</color>
     <color name="navBottom">#3A3939</color>
     <color name="rvShapeColor1">#3A3939</color>
     <color name="rvShapeColor2">#3A3939</color>
     <color name="fab_color">#353E5C</color>
+    <color name="btnStartColor">#ED1ED2</color>
+    <color name="btnEndColor">#2C50AC</color>
 
 
 </resources>

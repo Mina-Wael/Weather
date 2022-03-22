@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/_10sdp"
+    android:layout_marginTop="@dimen/_10sdp"
+    android:layout_marginEnd="@dimen/_10sdp"
+    android:paddingStart="@dimen/_10sdp"
+    android:paddingEnd="@dimen/_10sdp"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/card_shape"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:paddingStart="@dimen/_20sdp"
+        >
+
+
+        <TextView
+            android:id="@+id/alarmRowFromTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="3.30 Am"
+            android:textSize="@dimen/_20ssp" />
+
+        <TextView
+            android:id="@+id/alarmRowFromDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/alarmRowFromTime"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:text="26 feb"
+            android:textSize="@dimen/_16ssp"
+
+            />
+
+        <TextView
+            android:id="@+id/alarmRowToTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_40sdp"
+            android:layout_toEndOf="@+id/alarmRowFromTime"
+            android:text="3.30 Am"
+            android:textSize="@dimen/_20ssp"
+
+            />
+
+        <TextView
+            android:id="@+id/alarmRowToDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/alarmRowFromTime"
+            android:layout_marginStart="@dimen/_40sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_toEndOf="@+id/alarmRowFromTime"
+            android:text="26 feb"
+            android:textSize="@dimen/_16ssp"
+
+            />
+
+        <ImageView
+            android:id="@+id/alarmRomImg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="@dimen/_15sdp"
+            android:src="@drawable/more_icon" />
+    </RelativeLayout>
+</RelativeLayout>

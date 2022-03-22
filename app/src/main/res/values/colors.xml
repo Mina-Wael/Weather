@@ -9,12 +9,15 @@
     <color name="white">#D1C6C6</color>
     <color name="gray">#858282</color>
     <color name="card_color1">#54A3CA</color>
+    <color name="card_color2">#356E8A</color>
     <color name="card_stroke">#1062FB</color>
     <color name="backGround">#0B5291</color>
     <color name="navBottom">#003461</color>
     <color name="rvShapeColor1">#FF03DAC5</color>
     <color name="rvShapeColor2">#FF6200EE</color>
     <color name="fab_color">#0033EC</color>
+    <color name="btnStartColor">#FF03DAC5</color>
+    <color name="btnEndColor">#FF6200EE</color>
 
 
 

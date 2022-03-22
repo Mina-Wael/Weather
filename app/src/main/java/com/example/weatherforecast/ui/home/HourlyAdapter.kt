@@ -10,10 +10,27 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.weatherforecast.R
 import com.example.weatherforecast.model.Hourly
+import io.paperdb.Paper
 import java.util.*
 
 class HourlyAdapter(var context: Context, var houlyList: List<Hourly>) :
     RecyclerView.Adapter<HourlyAdapter.Holder>() {
+    var temp:String=""
+    var  language:String="en"
+    var tempValue:String=""
+
+    init {
+        Paper.init(context)
+        language= Paper.book().read("language","en")!!
+        temp = Paper.book().read("temp","metric")!!
+        when(temp)
+        {
+            "metric" ->tempValue="ْ c"
+            "imperial" ->tempValue="ْ f"
+            "kel" ->tempValue="kel"
+        }
+
+    }
 
     class Holder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
@@ -42,7 +59,7 @@ class HourlyAdapter(var context: Context, var houlyList: List<Hourly>) :
         }
         holder.tvTime.text = hours
 
-        holder.tvTempNum.text = Math.round(houlyList.get(position).temp).toString() + " " + "ْ C"
+        holder.tvTempNum.text = Math.round(houlyList.get(position).temp).toString() + " " + tempValue
         var url =
             "http://openweathermap.org/img/wn/${houlyList.get(position).weather.get(0).icon}@2x.png"
         Glide.with(context).load(url).into(holder.img)

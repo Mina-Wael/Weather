@@ -24,6 +24,7 @@ import com.example.weatherforecast.model.Hourly
 import com.example.weatherforecast.ui.home.DailyAdapter
 import com.example.weatherforecast.ui.home.HourlyAdapter
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import io.paperdb.Paper
 import java.util.ArrayList
 import kotlin.reflect.KProperty
 
@@ -35,7 +36,7 @@ class FavoriteDetails : Fragment() {
     lateinit var navController: NavController
     var i=0
     lateinit var onDrawerListener: OnDrawerListener
-
+    var tempValue:String=""
 
 
 
@@ -66,6 +67,23 @@ class FavoriteDetails : Fragment() {
         onDrawerListener=activity as MainActivity
 
         onDrawerListener.disableDrawer()
+        Paper.init(requireContext())
+        var temp= Paper.book().read("temp","metric")
+
+
+        var language = Paper.book().read("language", "en")
+        if (language.equals("en")) {
+            when (temp) {
+                "metric" -> tempValue = "ْ c"
+                "imperial" -> tempValue = "ْ f"
+                "kel" -> tempValue = "kel"
+            }
+        }else
+            when (temp) {
+                "metric" -> tempValue = "سليزيس"
+                "imperial" -> tempValue = "فيهرنهايت"
+                "kel" -> tempValue = "كيلفن"
+            }
 
 
         hourlyList = ArrayList()
@@ -103,6 +121,7 @@ class FavoriteDetails : Fragment() {
         viewModel.getForecastById(this,args.id)
         viewModel.forecast.observe(viewLifecycleOwner) {
             if (it != null) {
+                binding.detailsCard1TvTempMeas.setText(tempValue)
                 hourlyAdapter.setList(it!!.hourly)
                 dailyAdapter.setList(it.daily)
                 binding.detailsCard1TempText.text = it.current.weather.get(0).description

@@ -109,6 +109,7 @@
             >
 
             <RadioGroup
+                android:id="@+id/settingsRGTemp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingStart="@dimen/_5sdp"
@@ -227,6 +228,7 @@
                 android:layout_height="wrap_content"
                 android:paddingStart="@dimen/_5sdp"
                 android:paddingEnd="@dimen/_5sdp"
+                android:id="@+id/settingsRGLocation"
                 >
 
                 <RadioButton

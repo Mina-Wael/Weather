@@ -52,16 +52,19 @@
                         android:id="@+id/detailsCard1TempText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="@dimen/_25ssp" />
+                        android:textSize="@dimen/_25ssp"
+                        android:layout_centerHorizontal="true"
+                        />
 
                     <TextView
                         android:id="@+id/detailsCard1TvTempNum"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/detailsCard1TempText"
-                        android:layout_marginStart="@dimen/_35sdp"
                         android:textColor="@color/black"
-                        android:textSize="@dimen/_45ssp" />
+                        android:textSize="@dimen/_45ssp"
+                        android:layout_centerHorizontal="true"
+                        />
 
                     <TextView
                         android:id="@+id/detailsCard1TvTempMeas"
@@ -71,7 +74,7 @@
                         android:layout_toEndOf="@+id/detailsCard1TvTempNum"
                         android:text="ْ c"
                         android:textColor="@color/black"
-                        android:textSize="@dimen/_25ssp" />
+                        android:textSize="@dimen/_20ssp" />
                 </RelativeLayout>
             </androidx.cardview.widget.CardView>
 
@@ -134,7 +137,7 @@
                         android:id="@+id/detailsCard2PressTv2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="pressure"
+                        android:text="@string/pressure"
                         android:layout_below="@+id/detailsCard2PressTv1"
                         android:layout_marginTop="@dimen/_3sdp"
                         />
@@ -163,7 +166,7 @@
                         android:layout_below="@+id/detailsCard2HumTv1"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="@dimen/_3sdp"
-                        android:text="humidity" />
+                        android:text="@string/humidity" />
 
                     <ImageView
                         android:id="@+id/detailsCard2WindImg"
@@ -191,7 +194,7 @@
                         android:layout_below="@+id/detailsCard2WindTv1"
                         android:layout_alignParentEnd="true"
                         android:layout_marginTop="@dimen/_3sdp"
-                        android:text="wind" />
+                        android:text="@string/wind" />
 
                     <ImageView
                         android:id="@+id/detailsCard2cloudsImg"
@@ -222,7 +225,7 @@
                         android:layout_alignParentStart="true"
                         android:layout_alignParentBottom="true"
                         android:layout_marginTop="@dimen/_3sdp"
-                        android:text="clouds"
+                        android:text="@string/clouds"
                         android:layout_marginBottom="@dimen/_20sdp"
                         />
 
@@ -250,7 +253,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentBottom="true"
                         android:layout_marginTop="@dimen/_3sdp"
-                        android:text="uvi"
+                        android:text="@string/uvi"
                         android:layout_marginBottom="@dimen/_20sdp"
                         android:layout_centerHorizontal="true"
                         />
@@ -281,7 +284,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentBottom="true"
                         android:layout_marginTop="@dimen/_3sdp"
-                        android:text="visibility"
+                        android:text="@string/visibility"
                         android:layout_marginBottom="@dimen/_20sdp"
                         android:layout_alignParentEnd="true"
                         />

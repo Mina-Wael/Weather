@@ -3,13 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="@dimen/_10sdp"
+     android:padding="@dimen/_5sdp"
     >
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/_5sdp"
         app:cardCornerRadius="@dimen/_12sdp"
         app:cardElevation="@dimen/_12sdp"
         app:cardBackgroundColor="@color/card_color1"
@@ -23,10 +22,9 @@
 
             <TextView
                 android:id="@+id/customHomeRv2TvDay"
-                android:layout_width="@dimen/_50sdp"
+                android:layout_width="@dimen/_45sdp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
-                android:layout_marginRight="@dimen/_20sdp"
                 android:text="Sun"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_14ssp" />
@@ -44,7 +42,7 @@
                 android:id="@+id/customHomeRv2TvTempText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_15sdp"
+                android:layout_marginStart="@dimen/_12sdp"
                 android:layout_toEndOf="@+id/customHomeRv2Img"
                 android:text="Clear sky"
                 android:textColor="@color/black"

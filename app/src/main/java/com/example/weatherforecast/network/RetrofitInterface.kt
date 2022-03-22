@@ -8,7 +8,10 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface RetrofitInterface {
-    @GET("data/2.5/onecall?appid=9a868e13d9d740c094ca6ab7c61167c9&units=metric")
-    suspend fun getAllWeather(@Query("lat")lat:Double, @Query("lon")lon:Double): Response<Forecast>
+    @GET("data/2.5/onecall?appid=a0160ae460327a5e81a58fc59600c06f")
+    suspend fun getAllWeather(@Query("lat")lat:Double,
+                              @Query("lon")lon:Double,
+                              @Query("lang") lang:String?,
+                              @Query("units")units:String?): Response<Forecast>
 
 }

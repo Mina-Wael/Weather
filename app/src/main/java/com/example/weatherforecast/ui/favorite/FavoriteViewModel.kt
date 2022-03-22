@@ -8,7 +8,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.howsweather.model.Forecast
 import com.example.weatherforecast.repository.Repository
-import kotlinx.coroutines.launch
+import com.example.weatherforecast.util.Helper
+import kotlinx.coroutines.*
 
 class FavoriteViewModel(var context: Context) : ViewModel() {
     var repo:Repository
@@ -17,6 +18,8 @@ class FavoriteViewModel(var context: Context) : ViewModel() {
     }
 
     private val _favoriteList = MutableLiveData<List<Forecast>>()
+    private val _net = MutableLiveData<Boolean>()
+     val net :LiveData<Boolean> = _net
 
 
     val favoriteList: LiveData<List<Forecast>> = _favoriteList
@@ -31,9 +34,20 @@ class FavoriteViewModel(var context: Context) : ViewModel() {
     }
     fun deleteFavorite(forecast: Forecast)
     {
-
             repo.deleteForecast(forecast)
-
-
     }
+    fun checkNetwork(){
+        var value:Deferred<Boolean>
+       viewModelScope.launch(Dispatchers.IO) {
+           value=async{ Helper.check.hostAvailable() }
+           setData(value.await())
+       }
+    }
+    fun setData(d:Boolean)
+    {
+        viewModelScope.launch {
+            _net.value=d
+        }
+    }
+
 }

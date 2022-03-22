@@ -6,12 +6,71 @@
     android:layout_height="match_parent"
     tools:context=".ui.home.HomeFragment"
     android:background="@color/backGround"
+
     >
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_60sdp"
+        android:layout_alignParentTop="true"
+        android:id="@+id/homeGpsCard"
+        app:cardBackgroundColor="@color/card_color1"
+        android:layout_marginTop="@dimen/_30sdp"
+        app:cardCornerRadius="@dimen/_30sdp"
+        >
+       <RelativeLayout
+           android:layout_width="match_parent"
+           android:layout_height="match_parent"
+           android:layout_gravity="center"
+           >
+           <TextView
+               android:id="@+id/homeGpsText"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:textSize="@dimen/_20ssp"
+               android:gravity="center"
+               android:text="@string/gps_is_closed"
+               android:layout_centerVertical="true"
+               android:layout_marginEnd="@dimen/_30sdp"
+               android:layout_marginStart="@dimen/_50sdp"
+               />
+
+          <Button
+              android:id="@+id/homeGpsBtn"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:background="@drawable/rv_shape1"
+              android:layout_toEndOf="@+id/homeGpsText"
+              android:layout_centerVertical="true"
+              android:text="@string/open_gps"
+              />
+
+       </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/homeNoInternet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/no_internet"
+        android:layout_centerVertical="true"
+        android:textSize="@dimen/_25ssp"
+        android:gravity="center"
+        />
+    <ProgressBar
+        android:id="@+id/homeProgress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/homeNoInternet"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        />
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentTop="true"
+        android:padding="@dimen/_5sdp"
         >
 
         <RelativeLayout
@@ -52,14 +111,16 @@
                         android:id="@+id/homeCard1TempText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="@dimen/_25ssp" />
+                        android:textSize="@dimen/_25ssp"
+                        android:layout_centerHorizontal="true"
+                        />
 
                     <TextView
                         android:id="@+id/homeCard1TvTempNum"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/homeCard1TempText"
-                        android:layout_marginStart="@dimen/_35sdp"
+                        android:layout_centerHorizontal="true"
                         android:textColor="@color/black"
                         android:textSize="@dimen/_45ssp" />
 
@@ -71,7 +132,7 @@
                         android:layout_toEndOf="@+id/homeCard1TvTempNum"
                         android:text="ْ c"
                         android:textColor="@color/black"
-                        android:textSize="@dimen/_25ssp" />
+                        android:textSize="@dimen/_20ssp" />
                 </RelativeLayout>
             </androidx.cardview.widget.CardView>
 
@@ -81,7 +142,6 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/homeCard1"
                 android:orientation="horizontal"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:listitem="@layout/custom_item_home_rv" />
 
             <androidx.recyclerview.widget.RecyclerView
@@ -94,6 +154,7 @@
                 tools:listitem="@layout/custom_item_home_rv2" />
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/homeCard2"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_200sdp"
                 android:layout_below="@+id/homeRv2"
@@ -104,6 +165,7 @@
                 >
 
                 <RelativeLayout
+                    android:id="@+id/homeRelCard"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:padding="@dimen/_10sdp"
