@@ -19,6 +19,7 @@ class Retro() {
     init {
         retrofit = Retrofit.Builder().baseUrl(BASE_URL).
         addConverterFactory(GsonConverterFactory.create())
+            .addCallAdapterFactory(CoroutineCallAdapterFactory())
             .build()
 
     }

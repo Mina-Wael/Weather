@@ -1,11 +1,8 @@
 package com.example.weatherforecast.repository
 
-import android.accounts.NetworkErrorException
 import android.content.Context
 import android.util.Log
 import androidx.lifecycle.LiveData
-import androidx.room.Room
-import com.example.howsweather.database.DatabaseBuilder
 import com.example.howsweather.model.Forecast
 import com.example.howsweather.network.Retro
 import com.example.weatherforecast.database.LocalDatabase
@@ -13,8 +10,7 @@ import com.google.android.gms.maps.model.LatLng
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import retrofit2.Response
-import java.text.SimpleDateFormat
-import java.util.*
+
 
 class Repository private constructor(var context: Context) {
 
@@ -34,56 +30,22 @@ class Repository private constructor(var context: Context) {
         public fun getInstance(context: Context): Repository {
             if (repo == null) {
                 repo = Repository(context)
-
             }
             return repo!!
         }
     }
 
 
-    suspend fun getApiData(lat: Double, lng: Double,lang:String?,unit:String?) {
-        deleteOld()
-        try
-        {
-          val  res = retro.getWeatherData().getAllWeather(lat, lng,lang,unit)
-            if (res.isSuccessful) {
-                Log.i("date", "getApiData: "+convertLongToDayDate(res.body()!!.daily.get(0).dt))
-                Log.i("date", "getApiData: "+convertLongToDayDate(res.body()!!.daily.get(1).dt))
-                Log.i("date", "getApiData: "+convertLongToDayDate(res.body()!!.daily.get(2).dt))
-                Log.i("date", "getApiData: "+convertLongToDayDate(res.body()!!.daily.get(3).dt))
-                Log.i("date", "getApiData: "+res.body()!!.daily.get(0).dt)
-                Log.i("date", "getApiData: "+res.body()!!.daily.get(1).dt)
-                Log.i("date", "getApiData: "+res.body()!!.daily.get(2).dt)
-                Log.i("date", "getApiData: "+res.body()!!.daily.get(3).dt)
+    suspend fun getApiData(lat: Double, lng: Double,lang:String?,unit:String?):Response<Forecast> =
+              retro.getWeatherData().getAllWeather(lat, lng,lang,unit)
 
 
-
-                insertForcast(res.body()!!)
-                Log.i("TAG", "getApiData: success ")
-            }
-
-        }catch (net:NetworkErrorException)
-        {
-            Log.i("net", "getApiData: error"+net.message)
-        }
-
-    }
-
-    fun convertLongToDayDate(time: Long): Int {
-        val date = Date(time)
-        date.day
-        return date.day
-    }
-
-    suspend fun insertForcast(forecast: Forecast) {
-
+    suspend fun insertForecast(forecast: Forecast) {
         localDatabase.insertForecast(forecast)
     }
 
-    fun getForecast(): LiveData<Forecast> {
-        return localDatabase.getForecast()
+    fun getForecast(): LiveData<Forecast> = localDatabase.getForecast()
 
-    }
 
     fun deleteOld() {
         GlobalScope.launch { localDatabase.deleteOld() }
@@ -101,12 +63,9 @@ class Repository private constructor(var context: Context) {
                 localDatabase.insertForecast(forecast)
             }
         }
-
     }
 
-    fun getFavoriteList(): LiveData<List<Forecast>> {
-        return localDatabase.getFavorite()
-    }
+    fun getFavoriteList(): LiveData<List<Forecast>> =  localDatabase.getFavorite()
 
     fun deleteForecast(forecast: Forecast) {
         GlobalScope.launch {
@@ -115,9 +74,7 @@ class Repository private constructor(var context: Context) {
 
     }
 
-    suspend fun getForecastById(id: Int): LiveData<Forecast> {
-        return localDatabase.getForecastById(id)
-    }
+    suspend fun getForecastById(id: Int): LiveData<Forecast> =  localDatabase.getForecastById(id)
 
 
 }

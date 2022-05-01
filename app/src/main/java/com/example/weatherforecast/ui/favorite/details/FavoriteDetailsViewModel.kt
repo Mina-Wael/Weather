@@ -24,9 +24,9 @@ class FavoriteDetailsViewModel(context: Context) : ViewModel() {
     {
 
         viewModelScope.launch {
-          repo.getForecastById(id).observe(context, Observer {
-              _foreCast.value=it
-          })
+//          repo.getForecastById(id).observe(context, Observer {
+//              _foreCast.value=it
+//          })
         }
 
     }

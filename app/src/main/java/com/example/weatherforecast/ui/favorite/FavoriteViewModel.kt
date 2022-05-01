@@ -3,7 +3,6 @@ package com.example.weatherforecast.ui.favorite
 import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.howsweather.model.Forecast
@@ -19,7 +18,7 @@ class FavoriteViewModel(var context: Context) : ViewModel() {
 
     private val _favoriteList = MutableLiveData<List<Forecast>>()
     private val _net = MutableLiveData<Boolean>()
-     val net :LiveData<Boolean> = _net
+     val net : LiveData<Boolean> = _net
 
 
     val favoriteList: LiveData<List<Forecast>> = _favoriteList
@@ -27,14 +26,14 @@ class FavoriteViewModel(var context: Context) : ViewModel() {
     fun getFavoriteList(favoriteFragment: FavoriteFragment)
     {
         viewModelScope.launch {
-            repo.getFavoriteList().observe(favoriteFragment, Observer {
-                _favoriteList.value=it
-            })
+//            repo.getFavoriteList().observe(favoriteFragment, Observer {
+//                _favoriteList.value=it
+//            })
         }
     }
     fun deleteFavorite(forecast: Forecast)
     {
-            repo.deleteForecast(forecast)
+//            repo.deleteForecast(forecast)
     }
     fun checkNetwork(){
         var value:Deferred<Boolean>

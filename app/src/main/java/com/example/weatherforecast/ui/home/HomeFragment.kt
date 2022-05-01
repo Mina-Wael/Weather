@@ -18,6 +18,7 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
@@ -37,6 +38,7 @@ import com.google.android.gms.location.LocationServices
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.snackbar.Snackbar
 import io.paperdb.Paper
+import kotlinx.coroutines.flow.collect
 import java.util.ArrayList
 import java.util.Observer
 import kotlin.reflect.KProperty
@@ -60,9 +62,8 @@ class HomeFragment : Fragment() {
 
     private lateinit var navController: NavController
     lateinit var locationManager: LocationManager
-    lateinit var  temp:String
-    lateinit var language:String
-
+    lateinit var temp: String
+    lateinit var language: String
 
 
     private val binding get() = _binding!!
@@ -80,65 +81,76 @@ class HomeFragment : Fragment() {
     ): View {
         Paper.init(requireContext())
 
-         temp = Paper.book().read("temp", "metric")!!
-         language = Paper.book().read("language", "en")!!
+        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        val root: View = binding.root
 
         var homeViewModelFactory = HomeViewModelFactory(requireActivity())
         homeViewModel = ViewModelProvider(this, homeViewModelFactory).get(HomeViewModel::class.java)
 
-        _binding = FragmentHomeBinding.inflate(inflater, container, false)
-        val root: View = binding.root
+        temp = Paper.book().read("temp", "metric")!!
+        language = Paper.book().read("language", "en")!!
+
+
         binding.homeNoInternet.visibility = View.GONE
         hideGpsCard()
         hideFields()
 
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
-        if (!Paper.book().read<Boolean>("dataUpdated", false)!!) {
-            if (Paper.book().read<Boolean>("map", false)!!) {
+        lat = 31.55654
+        lng = 32.65659
 
-                var lat=Paper.book().read<Double>("mapLat")
-                var lng=Paper.book().read<Double>("mapLng")
-                if (lat!=null&&lng!=null) {
-                    homeViewModel.getData( lat, lng,language,temp
-                    )
-                }
+        Log.i("mina", "onCreateView: 1")
+        homeViewModel.checkNetwork()
+        startObserveToNetworkState()
 
-            } else if (Paper.book().read("source", "sds")!!.equals("gps")) {
-                if (!isLocationEnabled()) {
-                    hideFields()
-                    showGpsCard()
 
-                } else {
-                    hideGpsCard()
 
-                    fusedLocationClient.lastLocation
-                        .addOnSuccessListener { location: Location? ->
-                            if (location != null){
-                                homeViewModel.getData(
-                                    location.latitude,
-                                    location.longitude,
-                                    language,
-                                    temp
-                                )
-                                Paper.book().write("mapLat",location.latitude)
-                                Paper.book().write("mapLng",location.longitude)
-                            }
-                            else
-                                Toast.makeText(requireContext(), "nullllll", Toast.LENGTH_SHORT).show()
-                        }
 
-                }
-
-            }
-            else{
-                var lat=Paper.book().read<Double>("mapLat")
-                var lng=Paper.book().read<Double>("mapLng")
-
-                if (lat!=null&&lng!=null) {
-                    homeViewModel.getData( lat, lng,language,temp )
-                }
-            }
-        }
+//        fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
+//        if (!Paper.book().read<Boolean>("dataUpdated", false)!!) {
+//            if (Paper.book().read<Boolean>("map", false)!!) {
+//
+//                var lat=Paper.book().read<Double>("mapLat")
+//                var lng=Paper.book().read<Double>("mapLng")
+//                if (lat!=null&&lng!=null) {
+////                    homeViewModel.getData( lat, lng,language,temp)
+//                }
+//
+//            } else if (Paper.book().read("source", "sds")!!.equals("gps")) {
+//                if (!isLocationEnabled()) {
+//                    hideFields()
+//                    showGpsCard()
+//
+//                } else {
+//                    hideGpsCard()
+//
+//                    fusedLocationClient.lastLocation
+//                        .addOnSuccessListener { location: Location? ->
+//                            if (location != null){
+//                                homeViewModel.getData(
+//                                    location.latitude,
+//                                    location.longitude,
+//                                    language,
+//                                    temp
+//                                )
+//                                Paper.book().write("mapLat",location.latitude)
+//                                Paper.book().write("mapLng",location.longitude)
+//                            }
+//                            else
+//                                Toast.makeText(requireContext(), "nullllll", Toast.LENGTH_SHORT).show()
+//                        }
+//
+//                }
+//
+//            }
+//            else{
+//                var lat=Paper.book().read<Double>("mapLat")
+//                var lng=Paper.book().read<Double>("mapLng")
+//
+//                if (lat!=null&&lng!=null) {
+//                    homeViewModel.getData( lat, lng,language,temp )
+//                }
+//            }
+//        }
 
 
         var tempValue: String = ""
@@ -172,13 +184,16 @@ class HomeFragment : Fragment() {
         binding.homeRv2.setHasFixedSize(true)
         binding.homeCard1TvTempMeas.visibility = View.GONE
 
-        homeViewModel.forecast.observe(viewLifecycleOwner) {
-            if (it != null) {
-                showFields()
-                binding.homeProgress.visibility=View.GONE
+
+
+
+        homeViewModel.forecastMutable.observe(requireActivity(), androidx.lifecycle.Observer {
+            showFields()
+            if (it.current.weather.size > 0) {
+                binding.homeProgress.visibility = View.GONE
                 binding.homeCard2.visibility = View.VISIBLE
                 binding.homeCard1TvTempMeas.setText(tempValue)
-                hourlyAdapter.setList(it!!.hourly)
+                hourlyAdapter.setList(it.hourly)
                 dailyAdapter.setList(it.daily)
                 binding.homeCard1TempText.text = it.current.weather.get(0).description
                 binding.homeCard1TvTempNum.text = it.current.temp.toString()
@@ -191,21 +206,33 @@ class HomeFragment : Fragment() {
                 binding.homeCard2WindTv1.setText(it.current.wind_speed.toString() + "m/s")
                 binding.homeCard2uviTv1.setText(it.current.uvi.toString())
                 Log.i("TAG", "onCreateView: get data from database " + it!!.timezone)
-            } else
-                if (!networkState) {
-                    hideFields()
-                }
-        }
+            }
+
+        })
+
+
 
         homeViewModel.locationState.observe(requireActivity(), androidx.lifecycle.Observer {
             if (it != null)
                 Toast.makeText(requireContext(), "from frag " + it.latitude, Toast.LENGTH_SHORT)
                     .show()
-        }
-
-        )
-
+        })
         return root
+    }
+
+
+    private fun startObserveToNetworkState(){
+        homeViewModel.networkState.observe(requireActivity(), androidx.lifecycle.Observer {
+            if (it) {
+                homeViewModel.getData(lat, lng, language, temp)
+
+                Log.i("mina", "onCreateView: network ok")
+            } else {
+                Log.i("mina", "onCreateView: network not ok")
+                //todo no internet
+            }
+            homeViewModel.networkState.removeObservers(requireActivity())
+        })
     }
 
     private fun hideFields() {
@@ -220,7 +247,7 @@ class HomeFragment : Fragment() {
         binding.homeCard1.visibility = View.GONE
         binding.homeRv.visibility = View.GONE
         binding.homeRv2.visibility = View.GONE
-        binding.homeProgress.visibility=View.GONE
+        binding.homeProgress.visibility = View.GONE
 
 
     }
@@ -233,7 +260,7 @@ class HomeFragment : Fragment() {
         binding.homeCard1.visibility = View.VISIBLE
         binding.homeRv.visibility = View.VISIBLE
         binding.homeRv2.visibility = View.VISIBLE
-        binding.homeProgress.visibility=View.GONE
+        binding.homeProgress.visibility = View.GONE
         hideGpsCard()
     }
 
@@ -253,86 +280,13 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         navController = Navigation.findNavController(view)
-        var location: Location
 
-        lat = 31.55654
-        lng = 32.65659
-        var lang = Paper.book().read("language", "en")
-        var temp = Paper.book().read("temp", "metric")
-
-
-        binding.homeGpsBtn.setOnClickListener(View.OnClickListener {
-            enableGps()
-        })
-
-        homeViewModel.locationState.observe(requireActivity(), androidx.lifecycle.Observer{
-            if (it != null)
-                homeViewModel.getData(it.latitude, it.longitude, lang, temp)
-
-        })
-
-
-
-
-//        getLocation()
-        homeViewModel.startListening(this)
-
-        homeViewModel.networkState.observe(requireActivity(), androidx.lifecycle.Observer{
-            networkState = it
-            if (!it) {
-                binding.root.showSnackbar("No Internet", Snackbar.LENGTH_SHORT)
-                binding.homeNoInternet.visibility = View.VISIBLE
-            }
-
-        })
 
     }
 
-    @SuppressLint("MissingPermission")
     override fun onResume() {
 
-        if(Paper.book().read("locationChanged",false)!!)
-        {
-            var lang = Paper.book().read("language", "en")
-            var temp = Paper.book().read("temp", "metric")
-            var lat=Paper.book().read<Double>("mapLat")
-            var lng=Paper.book().read<Double>("mapLng")
-            homeViewModel.getData(lat!!,lng!!,lang,temp)
-            Paper.book().write("locationChanged",false)
-        }
-
-        if (Paper.book().read("source", "dk")!!.equals("gps")) {
-
-            if (!isLocationEnabled()) {
-                hideFields()
-                showGpsCard()
-
-            } else {
-                hideGpsCard()
-
-
-                fusedLocationClient.lastLocation
-                    .addOnSuccessListener { location: Location? ->
-                        if (location != null){
-                            homeViewModel.getData(
-                                location.latitude,
-                                location.longitude,
-                                language,
-                                temp
-                            )
-                            Paper.book().write("mapLat",location.latitude)
-                            Paper.book().write("mapLng",location.longitude)
-                            Paper.book().write("source","sda")
-                        }
-                        else
-                            Toast.makeText(requireContext(), "nullllll", Toast.LENGTH_SHORT).show()
-                    }
-
-            }
-
-        }
-
-            super.onResume()
+        super.onResume()
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -359,14 +313,11 @@ class HomeFragment : Fragment() {
     }
 
 
-
     private fun isLocationEnabled(): Boolean {
         val locationManager =
             requireActivity().getSystemService(Context.LOCATION_SERVICE) as LocationManager
         return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
     }
-
-
 
 }
 
