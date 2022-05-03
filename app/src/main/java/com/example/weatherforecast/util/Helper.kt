@@ -10,10 +10,13 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.net.NetworkInfo
 import android.os.Build
+import android.os.Message
 import android.util.Log
 import android.view.View
 import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
@@ -53,21 +56,7 @@ class Helper {
         }
 
 
-        fun checkPer(context: Context): Boolean // check if location permission is granted
-        {
-            return ActivityCompat.checkSelfPermission(
-                context,
-                Manifest.permission.ACCESS_COARSE_LOCATION
-            ) ==
-                    PackageManager.PERMISSION_GRANTED &&
-                    ActivityCompat.checkSelfPermission(
-                        context,
-                        Manifest.permission.ACCESS_FINE_LOCATION
-                    ) ==
-                    PackageManager.PERMISSION_GRANTED
-        }
-
-        fun requestPer(context: Context) //ask user for location permession
+        fun requestPer(context: Context) //ask user for location permission
         {
 
             ActivityCompat.requestPermissions(
@@ -78,6 +67,9 @@ class Helper {
                 4
             )
         }
+
+        fun checkLocationPermission(context: Context):Boolean=
+            ContextCompat.checkSelfPermission(context,Manifest.permission.ACCESS_FINE_LOCATION)== PackageManager.PERMISSION_GRANTED
 
 
     }

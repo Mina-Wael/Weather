@@ -1,11 +1,10 @@
 package com.example.weatherforecast.ui.home
 
+import android.Manifest
 import android.annotation.SuppressLint
-import android.content.Context
 import android.content.Intent
 import android.location.Location
 import android.location.LocationManager
-import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
 import android.util.Log
@@ -14,7 +13,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.annotation.RequiresApi
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
@@ -27,16 +26,15 @@ import com.example.weatherforecast.databinding.FragmentHomeBinding
 import com.example.weatherforecast.model.Hourly
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.snackbar.Snackbar
 import io.paperdb.Paper
 
 
 class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
-    val PERMISSION_ID = 1
+    private val binding get() = _binding!!
     lateinit var homeViewModel: HomeViewModel
-
-    lateinit var fusedLocationClient: FusedLocationProviderClient
 
     lateinit var hourlyList: List<Hourly>
     lateinit var hourlyAdapter: HourlyAdapter
@@ -45,38 +43,96 @@ class HomeFragment : Fragment() {
     lateinit var dailyList: List<Daily>
     lateinit var dailyAdapter: DailyAdapter
     lateinit var linearLayoutManager2: LinearLayoutManager
-    private lateinit var location: Location
 
     private lateinit var navController: NavController
-    lateinit var locationManager: LocationManager
-    lateinit var temp: String
+    lateinit var tempUnit: String
     lateinit var language: String
 
-    private val binding get() = _binding!!
-    var lat: Double = 0.0
-    var lng: Double = 0.0
-
-    @SuppressLint("MissingPermission")
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         Paper.init(requireContext())
-
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
-        val root: View = binding.root
 
         var homeViewModelFactory = HomeViewModelFactory(requireActivity())
         homeViewModel = ViewModelProvider(this, homeViewModelFactory).get(HomeViewModel::class.java)
 
-        temp = Paper.book().read("temp", "metric")!!
+        initSettingsData()
+        initHourlyRecycleView()
+        initDailyRecycleView()
+
+        binding.homeGpsBtn.setOnClickListener {
+            requestGps()
+        }
+        binding.homeSwipeRefresh.setOnRefreshListener {
+            onSwipeRefresh()
+        }
+
+        if (!Paper.book().read<Boolean>("firstTime", true)!!)
+            startLoadingData()
+
+        return binding.root
+    }
+
+    private fun onSwipeRefresh() {
+        if (Paper.book().read<Boolean>("firstTime", true)!!)
+            runFirstTime()
+        else {
+            homeViewModel.checkNetwork()
+            startObserveToNetworkState()
+            Toast.makeText(requireActivity(), "Updated", Toast.LENGTH_SHORT).show()
+        }
+        binding.homeSwipeRefresh.isRefreshing = false
+
+    }
+
+    private fun runFirstTime() {
+        if (homeViewModel.checkLocationPermission()) {
+            if (homeViewModel.checkGpsState()) {
+                startLoadingData()
+                showAndHideGpsCard(View.GONE)
+            } else {
+                showAndHideGpsCard(View.VISIBLE)
+                showAndHideFields(View.GONE)
+            }
+        } else {
+            showAndHideFields(View.GONE)
+            requestPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (Paper.book().read<Boolean>("firstTime", true)!!)
+            runFirstTime()
+
+    }
+
+    private fun startLoadingData() {
+        if (!(Paper.book().read("Started", false)!!)) {
+            Log.i("mina", "not started: ")
+            homeViewModel.checkNetwork()
+            startObserveToNetworkState()
+            Paper.book().write("Started", true)
+        } else {
+            Log.i("mina", "onCreateView: started true")
+            if (homeViewModel.forecast != null)
+                showData(homeViewModel.forecast!!)
+            else {
+                homeViewModel.getDataFromDatabase()
+                startObserveToDatabase()
+            }
+        }
+    }
+
+    private fun initSettingsData() {
+        tempUnit = Paper.book().read("temp", "metric")!!
         language = Paper.book().read("language", "en")!!
+    }
 
-        lat = 31.55654
-        lng = 32.65659
-        showAndHideGpsCard(View.GONE)
-
+    private fun initHourlyRecycleView() {
         hourlyList = ArrayList()
         hourlyAdapter = HourlyAdapter(requireActivity(), hourlyList)
         linearLayoutManager = LinearLayoutManager(activity)
@@ -84,48 +140,41 @@ class HomeFragment : Fragment() {
         binding.homeRv.layoutManager = linearLayoutManager
         binding.homeRv.adapter = hourlyAdapter
         binding.homeRv.setHasFixedSize(true)
+    }
 
+    private fun initDailyRecycleView() {
         dailyList = ArrayList()
         dailyAdapter = DailyAdapter(requireActivity(), dailyList)
         linearLayoutManager2 = LinearLayoutManager(activity)
         binding.homeRv2.layoutManager = linearLayoutManager2
         binding.homeRv2.adapter = dailyAdapter
         binding.homeRv2.setHasFixedSize(true)
+    }
 
-        binding.homeSwipeRefresh.setOnRefreshListener {
-            homeViewModel.checkNetwork()
-            startObserveToNetworkState()
-            binding.homeSwipeRefresh.isRefreshing = false
-            Toast.makeText(requireActivity(), "Updated", Toast.LENGTH_SHORT).show()
-        }
-
-        if (!(Paper.book().read("Started", false)!!)) {
-            Log.i("mina", "onResume: ")
-            homeViewModel.checkNetwork()
-            startObserveToNetworkState()
-            Paper.book().write("Started", true)
-        }
-        else
-        {
-            Log.i("mina", "onCreateView: started true")
-            if (homeViewModel.forecast!=null)
-            showData(homeViewModel.forecast!!)
-            else{
-                showAndHideFields(View.GONE)
-                showAndHideNoInternet(View.VISIBLE)}
-        }
-
-        return root
+    private fun saveLocation(location: Location) {
+        Paper.book().write("location", location)
     }
 
     private fun startObserveToNetworkState() {
         homeViewModel.networkState.observe(requireActivity(), androidx.lifecycle.Observer {
             if (it) {
-                homeViewModel.getApiData(lat, lng, language, temp)
-                startObserveToApiData()
-                Log.i("mina", "onCreateView: network ok")
+                if (homeViewModel.checkGpsState()) {
+                    homeViewModel.getLocation()
+                    startObserveToLocation()
+                    if (Paper.book().read<Boolean>("firstTime", true)!!)
+                        Paper.book().write("firstTime", false)
+                } else {
+                    if (Paper.book().read<Boolean>("firstTime", true)!!) {
+                        requestGps()
+                    } else {
+                        showMessage(binding.homeRelative, "Gps is closed")
+                        var location = Paper.book().read<Location>("location")!!
+                        homeViewModel.getApiData( location.latitude,location.longitude,language,tempUnit)
+                        startObserveToApiData()
+                    }
+                }
             } else {
-                Log.i("mina", "onCreateView: network not ok")
+                showMessage(binding.homeRelative, "No Internet")
                 homeViewModel.getDataFromDatabase()
                 startObserveToDatabase()
                 startShimmer()
@@ -134,6 +183,34 @@ class HomeFragment : Fragment() {
             homeViewModel.networkState.removeObservers(requireActivity())
 
         })
+    }
+
+    private fun startObserveToLocation() {
+        homeViewModel.locationLiveData.observe(requireActivity(), Observer {
+            if (it != null) {
+                saveLocation(it)
+                homeViewModel.getApiData(it.latitude, it.longitude, language, tempUnit)
+                startObserveToApiData()
+                homeViewModel.locationLiveData.removeObservers(requireActivity())
+            }
+        })
+    }
+
+    private val requestPermissionLauncher =
+        registerForActivityResult(
+            ActivityResultContracts.RequestPermission()
+        ) { isGranted: Boolean ->
+            if (isGranted) {
+                runFirstTime()
+                Log.i("mina", "location accepted ")
+
+            } else {
+                requireActivity().finish()
+            }
+        }
+
+    private fun showMessage(view: View, message: String) {
+        Snackbar.make(view, message, Snackbar.LENGTH_SHORT).show()
     }
 
     private fun startObserveToApiData() {
@@ -157,30 +234,31 @@ class HomeFragment : Fragment() {
     }
 
     private fun startObserveToDatabase() {
-        if (homeViewModel.forecastLiveData!=null)
+        if (homeViewModel.forecastLiveData != null)
             homeViewModel.forecastLiveData!!.observe(requireActivity(), Observer {
                 stopShimmer()
                 if (it != null) {
                     showData(it)
-                    homeViewModel.forecast=it
-                }
-                else{
+                    homeViewModel.forecast = it
+                } else {
                     showAndHideFields(View.GONE)
                     showAndHideNoInternet(View.VISIBLE)
                 }
+                homeViewModel.forecastLiveData!!.removeObservers(requireActivity())
             })
+
     }
 
     private fun getTempValue(): String {
         var tempValue: String = ""
         if (language.equals("en")) {
-            when (temp) {
+            when (tempUnit) {
                 "metric" -> tempValue = "ْ c"
                 "imperial" -> tempValue = "ْ f"
                 "kel" -> tempValue = "kel"
             }
         } else
-            when (temp) {
+            when (tempUnit) {
                 "metric" -> tempValue = "سليزيس"
                 "imperial" -> tempValue = "فيهرنهايت"
                 "kel" -> tempValue = "كيلفن"
@@ -189,7 +267,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun showData(forecast: Forecast) {
-        binding.homeCard1TvTempMeas.setText(getTempValue())
+        binding.homeCard1TvTempMeas.text = getTempValue()
         hourlyAdapter.setList(forecast.hourly)
         dailyAdapter.setList(forecast.daily)
         binding.homeCard1TempText.text = forecast.current.weather.get(0).description
@@ -225,8 +303,8 @@ class HomeFragment : Fragment() {
         binding.homeRv2.visibility = vis
     }
 
-    private fun showAndHideNoInternet(vis:Int){
-        binding.homeNoInternet.visibility=vis
+    private fun showAndHideNoInternet(vis: Int) {
+        binding.homeNoInternet.visibility = vis
     }
 
     private fun showAndHideGpsCard(vis: Int) {
@@ -253,7 +331,7 @@ class HomeFragment : Fragment() {
         _binding = null
     }
 
-    fun enableGps() {
+    private fun requestGps() {
         val intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
         startActivity(intent)
     }

@@ -41,7 +41,7 @@
     <string name="visibility">الرؤيه</string>
     <string name="pressure">الضغط</string>
     <string name="settings">الاعدادات</string>
-    <string name="no_internet">لا يوجد اتصال بالانترنت</string>
+    <string name="no_internet">لا يوجد اتصال بالانترنت ولا يوجد بيانات محفوظه</string>
     <string name="NoInternetMsg">لا يوجد اتصال بالانترنت</string>
     <string name="gps_is_closed">مغلق Gps</string>
     <string name="open_gps">افتح Gps</string>

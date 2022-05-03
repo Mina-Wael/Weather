@@ -9,8 +9,10 @@
     tools:context=".ui.home.HomeFragment">
 
     <RelativeLayout
+        android:id="@+id/homeRootView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        >
 
 
         <com.facebook.shimmer.ShimmerFrameLayout
@@ -43,7 +45,9 @@
                 android:layout_height="@dimen/_60sdp"
                 android:layout_marginTop="@dimen/_30sdp"
                 app:cardBackgroundColor="@color/card_color1"
-                app:cardCornerRadius="@dimen/_30sdp">
+                app:cardCornerRadius="@dimen/_30sdp"
+                android:visibility="gone"
+                >
 
                 <RelativeLayout
                     android:layout_width="match_parent"

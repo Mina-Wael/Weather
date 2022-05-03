@@ -12,12 +12,14 @@ import android.provider.Settings
 import android.util.DisplayMetrics
 import android.util.Log
 import android.view.MenuItem
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.GravityCompat
+import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -26,8 +28,10 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.weatherforecast.databinding.ActivityMainBinding
 import com.example.weatherforecast.ui.settings.SettingsActivity
+import com.example.weatherforecast.util.Helper
 import com.google.android.gms.location.*
 import com.google.android.material.navigation.NavigationView
+import com.google.android.material.snackbar.Snackbar
 import io.paperdb.Paper
 import java.util.*
 
@@ -178,6 +182,7 @@ class MainActivity : AppCompatActivity(), OnDrawerListener,
         Paper.book().write("comeFrom","false")
         super.onStop()
     }
+
 
     override fun onPause() {
         super.onPause()

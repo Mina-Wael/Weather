@@ -1,9 +1,14 @@
 package com.example.weatherforecast.ui.home
 
 
+import android.Manifest
+import android.annotation.SuppressLint
 import android.content.Context
+import android.content.pm.PackageManager
 import android.location.Location
 import android.location.LocationManager
+import android.util.Log
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.*
 import com.example.howsweather.model.Forecast
 import com.example.weatherforecast.repository.Repository
@@ -17,13 +22,15 @@ import kotlinx.coroutines.launch
 
 
 class HomeViewModel(var context: Context) : ViewModel(){
+
+
     var repo: Repository = Repository.getInstance(context)
 
     private var _networkState = MutableLiveData<Boolean>()
     var networkState: LiveData<Boolean> = _networkState
 
-    private var _locationState = MutableLiveData<Boolean>()
-    var locationState: LiveData<Boolean> = _locationState
+    private var _locationMutable = MutableLiveData<Location>()
+    var locationLiveData: LiveData<Location> = _locationMutable
 
       var forecastLiveData: LiveData<Forecast> ?=null
        var forecast:Forecast?=null
@@ -42,6 +49,7 @@ class HomeViewModel(var context: Context) : ViewModel(){
             _networkState.postValue(Helper.check.hostAvailable()&&Helper.check.isNetworkAvailable(context))
         }
     }
+
 
 
     fun getApiData(lat: Double, lng: Double, lang: String?, unit: String?) {
@@ -64,6 +72,7 @@ class HomeViewModel(var context: Context) : ViewModel(){
 
     fun getDataFromDatabase() {
            forecastLiveData= repo.getForecast()
+
     }
 
 sealed class HomeState {
@@ -75,10 +84,20 @@ sealed class HomeState {
     enum class OnFailMassage{
         NoInternet,ServerError,NoDataFound
     }
-    private fun checkLocationState(): Boolean {
-        val locationManager =
-            context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+     fun checkGpsState(): Boolean {
+        val locationManager = context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
         return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
     }
+
+    fun checkLocationPermission():Boolean=Helper.check.checkLocationPermission(context)
+
+    @SuppressLint("MissingPermission")
+    fun getLocation(){
+        fusedLocationClient=LocationServices.getFusedLocationProviderClient(context)
+        fusedLocationClient.lastLocation.addOnSuccessListener {
+            _locationMutable.value=it
+        }
+    }
+
 
 }

@@ -119,6 +119,7 @@ class FavoriteFragment : Fragment(), OnDeleteListener ,OnItemClick{
         if (requireActivity().findViewById<BottomNavigationView>(R.id.nav_view).visibility == View.GONE)
             requireActivity().findViewById<BottomNavigationView>(R.id.nav_view).visibility =
                 View.VISIBLE
+
             }
 
     override fun onClick(v: View, position: Int, forecast: Forecast) {
