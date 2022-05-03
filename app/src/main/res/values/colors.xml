@@ -19,7 +19,7 @@
     <color name="btnStartColor">#FF03DAC5</color>
     <color name="btnEndColor">#FF6200EE</color>
 
-
+    <color name="shimmer">#dddddd</color>
 
 
 </resources>

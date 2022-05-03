@@ -1,361 +1,367 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/home_swipe_refresh"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.home.HomeFragment"
     android:background="@color/backGround"
+    tools:context=".ui.home.HomeFragment">
 
-    >
-
-    <androidx.cardview.widget.CardView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_60sdp"
-        android:layout_alignParentTop="true"
-        android:id="@+id/homeGpsCard"
-        app:cardBackgroundColor="@color/card_color1"
-        android:layout_marginTop="@dimen/_30sdp"
-        app:cardCornerRadius="@dimen/_30sdp"
-        >
-       <RelativeLayout
-           android:layout_width="match_parent"
-           android:layout_height="match_parent"
-           android:layout_gravity="center"
-           >
-           <TextView
-               android:id="@+id/homeGpsText"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:textSize="@dimen/_20ssp"
-               android:gravity="center"
-               android:text="@string/gps_is_closed"
-               android:layout_centerVertical="true"
-               android:layout_marginEnd="@dimen/_30sdp"
-               android:layout_marginStart="@dimen/_50sdp"
-               />
+        android:layout_height="match_parent">
 
-          <Button
-              android:id="@+id/homeGpsBtn"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:background="@drawable/rv_shape1"
-              android:layout_toEndOf="@+id/homeGpsText"
-              android:layout_centerVertical="true"
-              android:text="@string/open_gps"
-              />
 
-       </RelativeLayout>
-    </androidx.cardview.widget.CardView>
-
-    <TextView
-        android:id="@+id/homeNoInternet"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/no_internet"
-        android:layout_centerVertical="true"
-        android:textSize="@dimen/_25ssp"
-        android:gravity="center"
-        />
-    <ProgressBar
-        android:id="@+id/homeProgress"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/homeNoInternet"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        />
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
-        android:padding="@dimen/_5sdp"
-        >
-
-        <RelativeLayout
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/homeShimmer"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingStart="@dimen/_5sdp"
-            android:paddingEnd="@dimen/_5sdp"
+            android:visibility="gone"
             >
+           <LinearLayout
+               android:layout_width="match_parent"
+               android:layout_height="match_parent"
+               android:orientation="horizontal"
+               >
+               <include layout="@layout/home_shimmer"/>
+
+           </LinearLayout>
+
+        </com.facebook.shimmer.ShimmerFrameLayout>
+
+        <RelativeLayout
+            android:id="@+id/homeRelative"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+           >
+
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/homeGpsCard"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_60sdp"
+                android:layout_marginTop="@dimen/_30sdp"
+                app:cardBackgroundColor="@color/card_color1"
+                app:cardCornerRadius="@dimen/_30sdp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center">
+
+                    <TextView
+                        android:id="@+id/homeGpsText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="@dimen/_50sdp"
+                        android:layout_marginEnd="@dimen/_30sdp"
+                        android:gravity="center"
+                        android:text="@string/gps_is_closed"
+                        android:textSize="@dimen/_20ssp" />
+
+                    <Button
+                        android:id="@+id/homeGpsBtn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toEndOf="@+id/homeGpsText"
+                        android:background="@drawable/rv_shape1"
+                        android:text="@string/open_gps" />
+
+                </RelativeLayout>
+            </androidx.cardview.widget.CardView>
 
             <TextView
-                android:id="@+id/homeTvTimeZone"
+                android:id="@+id/homeNoInternet"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_marginBottom="@dimen/_3sdp"
+                android:layout_centerVertical="true"
                 android:gravity="center"
-                android:textColor="@color/black"
-                android:textSize="@dimen/_15ssp" />
+                android:text="@string/no_internet"
+                android:textSize="@dimen/_25ssp"
+                android:visibility="gone"
+                />
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/homeCard1"
+
+            <androidx.core.widget.NestedScrollView
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_150sdp"
-                android:layout_marginBottom="@dimen/_10sdp"
-                app:cardCornerRadius="@dimen/_23sdp"
-                app:cardElevation="@dimen/_10sdp"
-                android:layout_below="@id/homeTvTimeZone"
-                >
+                android:layout_height="match_parent"
+                android:layout_alignParentTop="true"
+                android:padding="@dimen/_5sdp">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:background="@drawable/card_shape"
-                    >
+                    android:paddingStart="@dimen/_5sdp"
+                    android:paddingEnd="@dimen/_5sdp">
 
                     <TextView
-                        android:id="@+id/homeCard1TempText"
-                        android:layout_width="wrap_content"
+                        android:id="@+id/homeTvTimeZone"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textSize="@dimen/_25ssp"
-                        android:layout_centerHorizontal="true"
-                        />
-
-                    <TextView
-                        android:id="@+id/homeCard1TvTempNum"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/homeCard1TempText"
-                        android:layout_centerHorizontal="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginBottom="@dimen/_3sdp"
+                        android:gravity="center"
                         android:textColor="@color/black"
-                        android:textSize="@dimen/_45ssp" />
+                        android:textSize="@dimen/_15ssp" />
 
-                    <TextView
-                        android:id="@+id/homeCard1TvTempMeas"
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/homeCard1"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_150sdp"
+                        android:layout_below="@id/homeTvTimeZone"
+                        android:layout_marginBottom="@dimen/_10sdp"
+                        app:cardCornerRadius="@dimen/_23sdp"
+                        app:cardElevation="@dimen/_10sdp">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/card_shape"
+                            android:gravity="center">
+
+                            <TextView
+                                android:id="@+id/homeCard1TempText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerHorizontal="true"
+                                android:textSize="@dimen/_25ssp" />
+
+                            <TextView
+                                android:id="@+id/homeCard1TvTempNum"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/homeCard1TempText"
+                                android:layout_centerHorizontal="true"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/_45ssp" />
+
+                            <TextView
+                                android:id="@+id/homeCard1TvTempMeas"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/homeCard1TempText"
+                                android:layout_toEndOf="@+id/homeCard1TvTempNum"
+                                android:text="ْ c"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/_20ssp" />
+                        </RelativeLayout>
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/homeRv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/homeCard1TempText"
-                        android:layout_toEndOf="@+id/homeCard1TvTempNum"
-                        android:text="ْ c"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/_20ssp" />
+                        android:layout_below="@+id/homeCard1"
+                        android:orientation="horizontal"
+                        tools:listitem="@layout/custom_item_home_rv" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/homeRv2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/homeRv"
+                        android:layout_marginTop="@dimen/_12sdp"
+                        android:orientation="vertical"
+                        tools:listitem="@layout/custom_item_home_rv2" />
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/homeCard2"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_200sdp"
+                        android:layout_below="@+id/homeRv2"
+                        android:layout_marginTop="@dimen/_15sdp"
+                        android:layout_marginBottom="@dimen/_50sdp"
+                        app:cardCornerRadius="@dimen/_23sdp"
+                        app:cardElevation="@dimen/_15sdp">
+
+                        <RelativeLayout
+                            android:id="@+id/homeRelCard"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/card_shape"
+                            android:padding="@dimen/_10sdp">
+
+                            <ImageView
+                                android:id="@+id/homeCard2PressImg"
+                                android:layout_width="@dimen/_20sdp"
+                                android:layout_height="@dimen/_20sdp"
+                                android:layout_marginStart="@dimen/_6sdp"
+                                android:src="@drawable/press" />
+
+                            <TextView
+                                android:id="@+id/homeCard2PressTv1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/homeCard2PressImg"
+                                android:layout_marginStart="@dimen/_3sdp"
+                                android:layout_marginTop="@dimen/_3sdp"
+                                android:text="50" />
+
+                            <TextView
+                                android:id="@+id/homeCard2PressTv2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/homeCard2PressTv1"
+                                android:layout_marginTop="@dimen/_3sdp"
+                                android:text="@string/pressure" />
+
+                            <ImageView
+                                android:id="@+id/homeCard2HumImg"
+                                android:layout_width="@dimen/_20sdp"
+                                android:layout_height="@dimen/_20sdp"
+                                android:layout_alignParentTop="true"
+                                android:layout_centerHorizontal="true"
+                                android:src="@drawable/rain" />
+
+                            <TextView
+                                android:id="@+id/homeCard2HumTv1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/homeCard2HumImg"
+                                android:layout_centerHorizontal="true"
+                                android:layout_marginTop="@dimen/_3sdp"
+                                android:text="50" />
+
+                            <TextView
+                                android:id="@+id/homeCard2HumTv2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/homeCard2HumTv1"
+                                android:layout_centerHorizontal="true"
+                                android:layout_marginTop="@dimen/_3sdp"
+                                android:text="@string/humidity" />
+
+                            <ImageView
+                                android:id="@+id/homeCard2WindImg"
+                                android:layout_width="@dimen/_20sdp"
+                                android:layout_height="@dimen/_20sdp"
+                                android:layout_alignParentTop="true"
+                                android:layout_alignParentEnd="true"
+                                android:layout_marginEnd="@dimen/_6sdp"
+                                android:src="@drawable/wind" />
+
+                            <TextView
+                                android:id="@+id/homeCard2WindTv1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/homeCard2WindImg"
+                                android:layout_alignParentEnd="true"
+                                android:layout_marginTop="@dimen/_3sdp"
+                                android:layout_marginEnd="@dimen/_8sdp"
+                                android:text="50" />
+
+                            <TextView
+                                android:id="@+id/homeCard2WindTv2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/homeCard2WindTv1"
+                                android:layout_alignParentEnd="true"
+                                android:layout_marginTop="@dimen/_3sdp"
+                                android:text="@string/wind" />
+
+                            <ImageView
+                                android:id="@+id/homeCard2cloudsImg"
+                                android:layout_width="@dimen/_20sdp"
+                                android:layout_height="@dimen/_20sdp"
+                                android:layout_above="@+id/homeCard2cloudsTv1"
+                                android:layout_alignParentStart="true"
+                                android:layout_marginStart="@dimen/_6sdp"
+                                android:layout_marginTop="@dimen/_20sdp"
+                                android:src="@drawable/cloud"
+
+                                />
+
+                            <TextView
+                                android:id="@+id/homeCard2cloudsTv1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_above="@+id/homeCard2cloudsTv2"
+                                android:layout_alignParentStart="true"
+                                android:layout_marginStart="@dimen/_6sdp"
+                                android:layout_marginTop="@dimen/_3sdp"
+                                android:text="50" />
+
+                            <TextView
+                                android:id="@+id/homeCard2cloudsTv2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentStart="true"
+                                android:layout_alignParentBottom="true"
+                                android:layout_marginTop="@dimen/_3sdp"
+                                android:layout_marginBottom="@dimen/_20sdp"
+                                android:text="@string/clouds" />
+
+                            <ImageView
+                                android:id="@+id/homeCard2uviImg"
+                                android:layout_width="@dimen/_20sdp"
+                                android:layout_height="@dimen/_20sdp"
+                                android:layout_above="@+id/homeCard2uviTv1"
+                                android:layout_centerHorizontal="true"
+                                android:layout_marginTop="@dimen/_20sdp"
+                                android:src="@drawable/uvi" />
+
+                            <TextView
+                                android:id="@+id/homeCard2uviTv1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_above="@+id/homeCard2uviTv2"
+                                android:layout_centerHorizontal="true"
+                                android:layout_marginTop="@dimen/_3sdp"
+                                android:text="50" />
+
+                            <TextView
+                                android:id="@+id/homeCard2uviTv2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentBottom="true"
+                                android:layout_centerHorizontal="true"
+                                android:layout_marginTop="@dimen/_3sdp"
+                                android:layout_marginBottom="@dimen/_20sdp"
+                                android:text="@string/uvi" />
+
+                            <ImageView
+                                android:id="@+id/homeCard2visImg"
+                                android:layout_width="@dimen/_20sdp"
+                                android:layout_height="@dimen/_20sdp"
+                                android:layout_above="@+id/homeCard2visTv1"
+                                android:layout_alignParentEnd="true"
+                                android:layout_marginTop="@dimen/_20sdp"
+                                android:layout_marginEnd="@dimen/_6sdp"
+                                android:src="@drawable/vis" />
+
+                            <TextView
+                                android:id="@+id/homeCard2visTv1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_above="@+id/homeCard2visTv2"
+                                android:layout_alignParentEnd="true"
+                                android:layout_marginTop="@dimen/_3sdp"
+                                android:layout_marginEnd="@dimen/_5sdp"
+                                android:text="50" />
+
+                            <TextView
+                                android:id="@+id/homeCard2visTv2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentEnd="true"
+                                android:layout_alignParentBottom="true"
+                                android:layout_marginTop="@dimen/_3sdp"
+                                android:layout_marginEnd="@dimen/_5sdp"
+                                android:layout_marginBottom="@dimen/_20sdp"
+                                android:text="@string/visibility" />
+
+
+                        </RelativeLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+
                 </RelativeLayout>
-            </androidx.cardview.widget.CardView>
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/homeRv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/homeCard1"
-                android:orientation="horizontal"
-                tools:listitem="@layout/custom_item_home_rv" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/homeRv2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/homeRv"
-                android:layout_marginTop="@dimen/_12sdp"
-                android:orientation="vertical"
-                tools:listitem="@layout/custom_item_home_rv2" />
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/homeCard2"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_200sdp"
-                android:layout_below="@+id/homeRv2"
-                android:layout_marginTop="@dimen/_15sdp"
-                app:cardCornerRadius="@dimen/_23sdp"
-                app:cardElevation="@dimen/_15sdp"
-                android:layout_marginBottom="@dimen/_50sdp"
-                >
-
-                <RelativeLayout
-                    android:id="@+id/homeRelCard"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:padding="@dimen/_10sdp"
-                    android:background="@drawable/card_shape"
-                    >
-
-                    <ImageView
-                        android:id="@+id/homeCard2PressImg"
-                        android:layout_width="@dimen/_20sdp"
-                        android:layout_height="@dimen/_20sdp"
-                        android:layout_marginStart="@dimen/_6sdp"
-                        android:src="@drawable/press" />
-                    <TextView
-                        android:id="@+id/homeCard2PressTv1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="50"
-                        android:layout_below="@+id/homeCard2PressImg"
-                        android:layout_marginTop="@dimen/_3sdp"
-                        android:layout_marginStart="@dimen/_3sdp"
-                        />
-                    <TextView
-                        android:id="@+id/homeCard2PressTv2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/pressure"
-                        android:layout_below="@+id/homeCard2PressTv1"
-                        android:layout_marginTop="@dimen/_3sdp"
-                        />
-
-                    <ImageView
-                        android:id="@+id/homeCard2HumImg"
-                        android:layout_width="@dimen/_20sdp"
-                        android:layout_height="@dimen/_20sdp"
-                        android:layout_alignParentTop="true"
-                        android:layout_centerHorizontal="true"
-                        android:src="@drawable/rain" />
-                    <TextView
-                        android:id="@+id/homeCard2HumTv1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="50"
-                        android:layout_below="@+id/homeCard2HumImg"
-                        android:layout_marginTop="@dimen/_3sdp"
-                        android:layout_centerHorizontal="true"
-                        />
-
-                    <TextView
-                        android:id="@+id/homeCard2HumTv2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/homeCard2HumTv1"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginTop="@dimen/_3sdp"
-                        android:text="@string/humidity" />
-
-                    <ImageView
-                        android:id="@+id/homeCard2WindImg"
-                        android:layout_width="@dimen/_20sdp"
-                        android:layout_height="@dimen/_20sdp"
-                        android:layout_alignParentTop="true"
-                        android:layout_alignParentEnd="true"
-                        android:layout_marginEnd="@dimen/_6sdp"
-                        android:src="@drawable/wind" />
-
-                    <TextView
-                        android:id="@+id/homeCard2WindTv1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/homeCard2WindImg"
-                        android:layout_alignParentEnd="true"
-                        android:layout_marginTop="@dimen/_3sdp"
-                        android:layout_marginEnd="@dimen/_8sdp"
-                        android:text="50" />
-
-                    <TextView
-                        android:id="@+id/homeCard2WindTv2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/homeCard2WindTv1"
-                        android:layout_alignParentEnd="true"
-                        android:layout_marginTop="@dimen/_3sdp"
-                        android:text="@string/wind" />
-
-                    <ImageView
-                        android:id="@+id/homeCard2cloudsImg"
-                        android:layout_width="@dimen/_20sdp"
-                        android:layout_height="@dimen/_20sdp"
-                        android:layout_above="@+id/homeCard2cloudsTv1"
-                        android:layout_alignParentStart="true"
-                        android:layout_marginStart="@dimen/_6sdp"
-                        android:layout_marginTop="@dimen/_20sdp"
-                        android:src="@drawable/cloud"
-
-                        />
-                    <TextView
-                        android:id="@+id/homeCard2cloudsTv1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="50"
-                        android:layout_marginTop="@dimen/_3sdp"
-                        android:layout_alignParentStart="true"
-                        android:layout_above="@+id/homeCard2cloudsTv2"
-                        android:layout_marginStart="@dimen/_6sdp"
-                        />
-
-                    <TextView
-                        android:id="@+id/homeCard2cloudsTv2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentStart="true"
-                        android:layout_alignParentBottom="true"
-                        android:layout_marginTop="@dimen/_3sdp"
-                        android:text="@string/clouds"
-                        android:layout_marginBottom="@dimen/_20sdp"
-                        />
-
-                    <ImageView
-                        android:id="@+id/homeCard2uviImg"
-                        android:layout_width="@dimen/_20sdp"
-                        android:layout_height="@dimen/_20sdp"
-                        android:layout_above="@+id/homeCard2uviTv1"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginTop="@dimen/_20sdp"
-                        android:src="@drawable/uvi" />
-                    <TextView
-                        android:id="@+id/homeCard2uviTv1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="50"
-                        android:layout_marginTop="@dimen/_3sdp"
-                        android:layout_above="@+id/homeCard2uviTv2"
-                        android:layout_centerHorizontal="true"
-                        />
-
-                    <TextView
-                        android:id="@+id/homeCard2uviTv2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentBottom="true"
-                        android:layout_marginTop="@dimen/_3sdp"
-                        android:text="@string/uvi"
-                        android:layout_marginBottom="@dimen/_20sdp"
-                        android:layout_centerHorizontal="true"
-                        />
-
-                    <ImageView
-                        android:id="@+id/homeCard2visImg"
-                        android:layout_width="@dimen/_20sdp"
-                        android:layout_height="@dimen/_20sdp"
-                        android:layout_above="@+id/homeCard2visTv1"
-                        android:layout_alignParentEnd="true"
-                        android:layout_marginTop="@dimen/_20sdp"
-                        android:layout_marginEnd="@dimen/_6sdp"
-                        android:src="@drawable/vis" />
-
-                    <TextView
-                        android:id="@+id/homeCard2visTv1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_above="@+id/homeCard2visTv2"
-                        android:layout_alignParentEnd="true"
-                        android:layout_marginTop="@dimen/_3sdp"
-                        android:layout_marginEnd="@dimen/_5sdp"
-                        android:text="50" />
-
-                    <TextView
-                        android:id="@+id/homeCard2visTv2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentBottom="true"
-                        android:layout_marginTop="@dimen/_3sdp"
-                        android:text="@string/visibility"
-                        android:layout_marginBottom="@dimen/_20sdp"
-                        android:layout_alignParentEnd="true"
-                        android:layout_marginEnd="@dimen/_5sdp"
-                        />
-
-
-                </RelativeLayout>
-
-            </androidx.cardview.widget.CardView>
-
-
-
+            </androidx.core.widget.NestedScrollView>
         </RelativeLayout>
-
-    </ScrollView>
-
-
-
-
-</RelativeLayout>
+    </RelativeLayout>
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

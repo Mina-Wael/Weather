@@ -19,6 +19,8 @@
         <entry key="..\:/ITI/Android/Weather2/app/src/main/res/layout/custom_init_dialog.xml" value="0.17962962962962964" />
         <entry key="..\:/ITI/Android/Weather2/app/src/main/res/layout/custom_item_home_rv.xml" value="0.19635416666666666" />
         <entry key="..\:/ITI/Android/Weather2/app/src/main/res/layout/custom_item_home_rv2.xml" value="0.19635416666666666" />
+        <entry key="..\:/ITI/Android/Weather2/app/src/main/res/layout/custom_rv_dialy_shimmer.xml" value="0.18802083333333333" />
+        <entry key="..\:/ITI/Android/Weather2/app/src/main/res/layout/custom_rv_hourly_shimmer.xml" value="0.18802083333333333" />
         <entry key="..\:/ITI/Android/Weather2/app/src/main/res/layout/custom_time_dialog.xml" value="0.18802083333333333" />
         <entry key="..\:/ITI/Android/Weather2/app/src/main/res/layout/favorite_details_fragment.xml" value="0.18802083333333333" />
         <entry key="..\:/ITI/Android/Weather2/app/src/main/res/layout/fragment_about_us.xml" value="0.18802083333333333" />
@@ -31,6 +33,7 @@
         <entry key="..\:/ITI/Android/Weather2/app/src/main/res/layout/fragment_settings.xml" value="0.2" />
         <entry key="..\:/ITI/Android/Weather2/app/src/main/res/layout/fragment_splash.xml" value="0.18802083333333333" />
         <entry key="..\:/ITI/Android/Weather2/app/src/main/res/layout/header.xml" value="0.18802083333333333" />
+        <entry key="..\:/ITI/Android/Weather2/app/src/main/res/layout/home_shimmer.xml" value="0.18802083333333333" />
         <entry key="..\:/ITI/Android/Weather2/app/src/main/res/layout/permission_fragment.xml" value="0.18802083333333333" />
         <entry key="..\:/ITI/Android/Weather2/app/src/main/res/layout/rv_favorite_custom_row.xml" value="0.18802083333333333" />
         <entry key="..\:/ITI/Android/Weather2/app/src/main/res/layout/splash_screen_fragment.xml" value="0.18802083333333333" />

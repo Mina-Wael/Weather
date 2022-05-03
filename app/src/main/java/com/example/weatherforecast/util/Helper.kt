@@ -49,26 +49,22 @@ class Helper {
                 println(e)
                 return false
             }
-            return false
+
         }
 
 
-        fun checkPer(context: Context): Boolean // check if location permession is granted
+        fun checkPer(context: Context): Boolean // check if location permission is granted
         {
-            if (ActivityCompat.checkSelfPermission(
-                    context,
-                    Manifest.permission.ACCESS_COARSE_LOCATION
-                ) ==
-                PackageManager.PERMISSION_GRANTED &&
-                ActivityCompat.checkSelfPermission(
-                    context,
-                    Manifest.permission.ACCESS_FINE_LOCATION
-                ) ==
-                PackageManager.PERMISSION_GRANTED
-            )
-                return true
-            else
-                return false
+            return ActivityCompat.checkSelfPermission(
+                context,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            ) ==
+                    PackageManager.PERMISSION_GRANTED &&
+                    ActivityCompat.checkSelfPermission(
+                        context,
+                        Manifest.permission.ACCESS_FINE_LOCATION
+                    ) ==
+                    PackageManager.PERMISSION_GRANTED
         }
 
         fun requestPer(context: Context) //ask user for location permession

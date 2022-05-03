@@ -3,6 +3,7 @@ package com.example.weatherforecast.ui.home
 
 import android.content.Context
 import android.location.Location
+import android.location.LocationManager
 import androidx.lifecycle.*
 import com.example.howsweather.model.Forecast
 import com.example.weatherforecast.repository.Repository
@@ -16,39 +17,34 @@ import kotlinx.coroutines.launch
 
 
 class HomeViewModel(var context: Context) : ViewModel(){
-    var repo: Repository
-    private var _foreCastList:MutableStateFlow<Forecast> = MutableStateFlow<Forecast>(Forecast())
+    var repo: Repository = Repository.getInstance(context)
 
     private var _networkState = MutableLiveData<Boolean>()
     var networkState: LiveData<Boolean> = _networkState
 
-    private var _locationState = MutableLiveData<Location>()
-    var locationState: LiveData<Location> = _locationState
+    private var _locationState = MutableLiveData<Boolean>()
+    var locationState: LiveData<Boolean> = _locationState
 
-    private var _forecastMutable = MutableLiveData<Forecast>()
-    var forecastMutable: LiveData<Forecast> = _forecastMutable
+      var forecastLiveData: LiveData<Forecast> ?=null
+       var forecast:Forecast?=null
 
-
-
-    lateinit var fusedLocationClient: FusedLocationProviderClient
+     var fusedLocationClient: FusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(context)
 
     private val _stateMutableLiveData:MutableLiveData<HomeState> = MutableLiveData()
     val stateLiveData:LiveData<HomeState> = _stateMutableLiveData
 
     init {
-        repo = Repository.getInstance(context)
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(context)
         Paper.init(context)
     }
 
     fun checkNetwork(){
         viewModelScope.launch (Dispatchers.IO){
-            _networkState.postValue(Helper.check.hostAvailable())
+            _networkState.postValue(Helper.check.hostAvailable()&&Helper.check.isNetworkAvailable(context))
         }
     }
 
 
-    fun getData(lat: Double, lng: Double, lang: String?, unit: String?) {
+    fun getApiData(lat: Double, lng: Double, lang: String?, unit: String?) {
 
         viewModelScope.launch(Dispatchers.IO) {
 
@@ -59,35 +55,30 @@ class HomeViewModel(var context: Context) : ViewModel(){
                 _stateMutableLiveData.postValue(HomeState.OnSuccess(res.body()!!))
                 repo.deleteOld()
                 repo.insertForecast(res.body()!!)
+                forecast=res.body()!!
             }
             else
                 _stateMutableLiveData.value=HomeState.OnFail(OnFailMassage.ServerError)
         }
     }
 
-    fun startListening(homeFragment: HomeFragment) {
-        viewModelScope.launch {
-            repo.getForecast().observe(homeFragment, Observer {
-
-                 if(it!=null)  {
-                     _forecastMutable.value =it
-                 }
-
-            })
-        }
-
+    fun getDataFromDatabase() {
+           forecastLiveData= repo.getForecast()
     }
 
-    var forecast: MutableStateFlow<Forecast> = _foreCastList
-
 sealed class HomeState {
-    class OnSuccess(forecast: Forecast): HomeState()
-    class OnFail(msg:OnFailMassage) : HomeState()
+    class OnSuccess(var forecast: Forecast): HomeState()
+    class OnFail(var msg:OnFailMassage) : HomeState()
     object Loading: HomeState()
 }
 
     enum class OnFailMassage{
-        NoInternet,ServerError
+        NoInternet,ServerError,NoDataFound
+    }
+    private fun checkLocationState(): Boolean {
+        val locationManager =
+            context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
     }
 
 }

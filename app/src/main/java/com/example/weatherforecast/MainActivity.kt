@@ -47,7 +47,6 @@ class MainActivity : AppCompatActivity(), OnDrawerListener,
     lateinit var location: Location
 
 
-
     @SuppressLint("RestrictedApi")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -124,11 +123,6 @@ class MainActivity : AppCompatActivity(), OnDrawerListener,
         super.onRestart()
     }
 
-    @SuppressLint("MissingPermission")
-    override fun onResume() {
-        super.onResume()
-    }
-
     override fun onSupportNavigateUp(): Boolean {
         return NavigationUI.navigateUp(navController, appBarConfiguration)
     }
@@ -165,14 +159,12 @@ class MainActivity : AppCompatActivity(), OnDrawerListener,
                 startActivityForResult(intent, 5)
             }
             R.id.drawerAboutUs -> navController.navigate(R.id.AboutUs)
-
         }
         binding.mainDrawer.closeDrawer(GravityCompat.START)
         return true
     }
 
-    fun refresh() {
-
+    private fun refresh() {
             var refresh = Intent(this, this::class.java)
             startActivity(refresh)
             finish()
@@ -185,6 +177,11 @@ class MainActivity : AppCompatActivity(), OnDrawerListener,
         Paper.book().write("dataUpdated",false)
         Paper.book().write("comeFrom","false")
         super.onStop()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Paper.book().write("Started",false)
     }
 
 }
